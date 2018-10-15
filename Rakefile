@@ -4,7 +4,7 @@
 #      https://ruby.github.io/rake/
 #
 
-require_relative 'config/boot'      # Just the application
+require_relative 'config/boot_web'
 require 'rspec/core/rake_task'
 
 # ##

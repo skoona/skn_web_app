@@ -1,5 +1,5 @@
 # ##
-# File: ./strategy/services/services_registry.rb
+# File: ./main/services/services_registry.rb
 # ##
 
 # ##

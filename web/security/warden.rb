@@ -1,4 +1,4 @@
-# config/warden.rb
+# web/warden.rb
 # require 'warden'
 
 

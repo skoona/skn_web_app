@@ -32,6 +32,9 @@ begin
     end
   end
 
+  # Load Main Business App
+  require_relative '../main/main'
+
 rescue Bundler::BundlerError, StandardError => ex
   $stderr.puts ex.message
   if ex.is_a?(Bundler::BundlerError)
@@ -43,18 +46,3 @@ rescue Bundler::BundlerError, StandardError => ex
   end
 end
 
-# Setup Application Load Path
-%w[main persistence strategy].each do |path_name|
-  codes = File.expand_path("../#{path_name}", __dir__)
-  $LOAD_PATH.unshift(codes) unless $LOAD_PATH.include?(codes)
-end
-
-begin
-  require_relative '../persistence/persistence'
-  require_relative '../strategy/strategy'
-
-rescue StandardError => ex
-  $stderr.puts ex.message
-  $stderr.puts ex.backtrace[0..8]
-  exit 1
-end
