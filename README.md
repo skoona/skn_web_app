@@ -84,44 +84,37 @@ Aside from DB migrations and increasing RSPec test coverage, I'm done with this 
     │   ├── stylesheets/        - Sass based CSS
     │   └── javascript/         - JQuery, BootStrap, and general Javascript
     ├── config
+    │   ├── initializers/       - SknApp, SknSettings, and Logging are initialized here
     │   ├── settings/           - SknSettings Environment-biased Application Settings
     │   ├── puma.rb
     │   ├── settings.yml        - Default Application Settings
-    │   └── version.rb          - Application Version Object
+    │   ├── version.rb          - Application Version Object
+    │   ├── boot_web.rb         - Load Main and Web Application components
+    │   └── boot.rb             - Load Main Application
     ├── config.ru               - Rack Initializer
-    ├── coverage                - SimpleCov HTML Reports
-    ├── docs                    - rubocop HTML Reports
+    ├── Gemfile                 - Gem Requirements
+    ├── spec                    - RSpec Tests
     ├── i18n                    - Message Translation files
-    ├── main
-    │   ├── skn_base.rb         - Main Roda Web App/Adapter
-    │   ├── warden.rb           - Extended Warden Configuration
-    │   └── boot.rb             - LoadPath Management and Log file setup
-    ├── persistence
-    │   ├── entity              - Entity Struct for User
-    │   ├── relations           - Users definition
-    │   ├── repositories        - User repo
-    │   └── persistence.rb      - Rom-DB setup
+    ├── main                    - Business UseCases and Integrations
+    │   ├── persistence/        - ROM-DB DataSource management
+    │   ├── authentication/     - User Management
+    │   ├── services/           - API services and ServicesRegistry
+    │   ├── utils/              - Application Utilities
+    │   └── main.rb             - LoadPath Management
     ├── public
     │   ├── images/             - View Images
     │   └── fonts/              - View Fonts
-    ├── routes
-    │   ├── profiles.rb         - Profile Routes
-    │   └── users.rb            - User Routes
-    ├── strategy                - Business UseCases and Integrations
-    │   ├── authentication      - User Management
-    │   ├── services            - API services and ServicesRegistry
-    │   └── utils               - Application Utilities
-    └── views
-        ├── helpers/            - View HTML Helpers
-        ├── layouts/            - Site Layout
-        ├── profiles/           - Profile Pages
-        ├── sessions/           - Signin Pages
-        ├── about.html.erb      - Root Pages...
-        ├── contact.html.erb
-        ├── homepage.html.erb
-        ├── http_404.html.erb
-        ├── http_500.html.erb
-        └── unknown.html.erb
+    └── web                     - Primary Web Integration
+        ├── security /          - Warden's helper interface modules
+        ├── helpers/            - View HTML Helpers
+        ├── routes
+        │   ├── profiles.rb     - Profile Routes
+        │   └── users.rb        - User Routes
+        └── views
+            ├── layouts/        - Site Layout
+            ├── profiles/       - Profile Pages
+            ├── sessions/       - Signin Pages
+            └── about.html...   - Root Pages
 
 ```
 
