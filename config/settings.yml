@@ -26,12 +26,12 @@ content_service:
   content_path: '/profiles/api_get_demo_content_object?id=#ID#;username=#USERNAME#;content_type=#CONTENT_TYPE#;'
 
 ##
-# - SknServices True Database Names
-# SknServices_production
-# SknServices_development
-# SknServices_test
+# - SknWebApp_<RACK_ENV> True Database Names
+# SknWebApp_production
+# SknWebApp_development
+# SknWebApp_test
 postgresql:
-  url: postgres://localhost/SknBase_development
+  url: postgres://localhost/SknWebApp_development
   user: postgres
   password: postgres
 
