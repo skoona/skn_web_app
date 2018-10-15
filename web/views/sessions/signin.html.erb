@@ -1,0 +1,39 @@
+
+<% content_for(:title, "Sign in") %>
+
+<article>
+
+  <section>
+
+    <form class="form-signin" action="/sessions/signin" method="post" role="form">
+      <h2 class="form-signin-heading">Please sign in</h2>
+      <% unless SknApp.env.test? %>
+        <%= csrf_tag %>
+        <%# Rack::Csrf.tag(env) %>
+      <% end %>
+
+        <div class="form-group has-feedback">
+          <label for="sessions_username" class="sr-only">Username</label>
+          <input type="text" placeholder="Your Username" name="sessions[username]" id="sessions_username" class="form-control" required autofocus>
+          <span class="glyphicon glyphicon-user form-control-feedback" aria-hidden="true"></span>
+        </div>
+
+        <div class="form-group has-feedback">
+          <label for="sessions_password" class="sr-only">Password</label>
+          <input type="password" class="form-control" name="sessions[password]" id="sessions_password" placeholder="Your Password" required>
+          <span class="glyphicon glyphicon-lock form-control-feedback" aria-hidden="true"></span>
+        </div>
+
+        <div class="checkbox">
+          <label>
+            <input value="0" type="checkbox" name="sessions[remember_me_token]" type="hidden">
+            <input value="1" type="checkbox" checked="checked" name="sessions[remember_me_token]" id="sessions_remember_me_token">
+            <span class="add-on"> Remember me beyond logout; on this computer.</span>
+          </label>
+        </div>
+        <button type="submit" name="commit" value="login" class="submit btn-primary btn-block">Sign in</button>
+    </form>
+
+  </section>
+
+</article>

@@ -1,0 +1,15 @@
+<% content_for(:title, "Contact") %>
+
+<article>
+
+  <div class="jumbotron earth-valley">
+    <h1 class="big-chalk">Contact</h1>
+    <p>You can send me an email or connect with me on Twitter/LinkedIn/etc.</p>
+    <p>
+      <a class="btn btn-primary btn-lg" href="/about" role="button">More...</a>
+    </p>
+  </div>
+
+  <h3 class="text-center">Welcome <%= logged_in? ? current_user.name : 'UserName' %><br/><small>Contact Page</small></h3>
+
+</article>

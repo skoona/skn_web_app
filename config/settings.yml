@@ -1,0 +1,59 @@
+---
+Packaging:
+  pgmName: SknWebApp
+  releaseVersion: <%= Skn::Version %>
+  isTest: false
+  isDevelopment: false
+  isStaging: false
+  isProduction: false
+  configName: base
+  short_name: skn
+
+skn_base:
+  secret: 37ae095d4e6ad226c79a03393f743d6c4d51b19fd8f6850e9ce5041312e631f6f9f7b10192ccd29c9ca4e75bff4207929304132849d0defc803a926406bbb676
+  session_key: _skn_web_app_session
+  session_domain: .skoona.net
+
+content_service:
+  description: SknWebApp Member APIs
+  url: 'http://vserv.skoona.net:8080'
+  username: developer
+  password: developer99
+  read_timeout_seconds: 15
+  open_timeout_seconds: 8
+  mime: 'application/json; charset=utf-8;'
+  resources_path: '/profiles/api_in_action?username=#USERNAME#'
+  content_path: '/profiles/api_get_demo_content_object?id=#ID#;username=#USERNAME#;content_type=#CONTENT_TYPE#;'
+
+##
+# - SknServices True Database Names
+# SknServices_production
+# SknServices_development
+# SknServices_test
+postgresql:
+  url: postgres://localhost/SknBase_development
+  user: postgres
+  password: postgres
+
+security:
+  extra_digest_strength: 3
+  session_expires: 480                # 8 hours by minutes
+  remembered_for: 2160                # 32 hours by minutes
+  verify_login_after_seconds: 14400   # 4 hours by seconds
+
+  ! public_pages:
+    - /assets
+    - /images
+    - /fonts
+    - /public
+    - /sessions
+    - /about
+    - /contact
+
+  ! asset_paths:
+    - /assets
+    - /images
+    - /fonts
+    - /public
+
+

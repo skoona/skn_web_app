@@ -1,0 +1,99 @@
+<% content_for(:title, "About") %>
+
+<article>
+
+  <div class="jumbotron annular-eclipse">
+    <h1 class="big-chalk">About</h1>
+    <p>
+      Exploring Roda and alternative web patterns available for the Ruby language.
+    </p>
+    <p>
+      <a class="btn btn-primary btn-lg" href="/profiles/resources" role="button">About this application.</a>
+    </p>
+  </div>
+
+  <h3 class="text-center">Welcome <%= logged_in? ? current_user.name : 'UserName' %><br/><small>About Page</small></h3>
+
+  <section>
+    <p class="lead">
+      The fullest demonstration is enabled via users with the <code>:demo</code> attribute, as it provides access to the majority of documents.
+      All users have access to the <em>Resources</em> page that shows the accessible documents based their profile.
+    </p>
+  </section>
+
+  <h4>Predefined Demo Users</h4>
+
+  <section>
+    <div class="col-md-3">
+      <div class="well">
+        <h4>Username: <code>developer</code></h4>
+        <p>password: <code>developer99</code></p>
+        <p>Super User</p>
+        <code>:admin, :demo</code>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="well">
+        <h4>Username: <code>eptester</code></h4>
+        <p>password: <code>demos</code></p>
+        <p>Employee Primary User</p>
+        <code>:admin, :demo</code>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="well">
+        <h4>Username: <code>estester</code></h4>
+        <p>password: <code>demos</code></p>
+        <p>Employee Secondary User</p>
+        <code>:reset, :runtime</code>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="well">
+        <h4>Username: <code>bptester</code></h4>
+        <p>password: <code>demos</code></p>
+        <p>Branch Primary User</p>
+        <code>:reset, :runtime</code>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="well">
+        <h4>Username: <code>bstester</code></h4>
+        <p>password: <code>demos</code></p>
+        <p>Branch Secondary User</p>
+        <code>:reset, :runtime</code>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="well">
+        <h4>Username: <code>bnptester</code></h4>
+        <p>password: <code>demos</code></p>
+        <p>Branch No Privileges</p>
+        <code>:reset, :runtime</code>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="well">
+        <h4>Username: <code>vptester</code></h4>
+        <p>password: <code>demos</code></p>
+        <p>Vendor Primary User</p>
+        <code>:reset, :runtime</code>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="well">
+        <h4>Username: <code>vstester</code></h4>
+        <p>password: <code>demos</code></p>
+        <p>Vendor Secondary User</p>
+        <code>:reset, :runtime</code>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p>
+      Since this is a security based application it might be worthwhile to see what happens when you attempt to compromise it by; using bookmarks, or
+      trying to navigate via URL.
+    </p>
+  </section>
+</article>

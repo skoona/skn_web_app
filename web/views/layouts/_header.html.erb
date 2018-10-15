@@ -1,0 +1,51 @@
+<header>
+
+  <nav class="navbar navbar-default navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/"><%= release_name %></a>
+      </div>
+
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <% unless current_page_name_include?('signin') %>
+          <ul class="nav navbar-nav">
+            <li><a class="<%= menu_active?('/') %>" href="/">Home</a></li>
+            <li><a class="<%= menu_active?('/about') %>" href="/about">About</a></li>
+            <li><a class="<%= menu_active?('/contact') %>" href="/contact">Contact</a></li>
+            <li><a class="<%= menu_active?('/profiles/resources') %>" href="/profiles/resources">Resources</a></li>
+          </ul>
+        <% end %>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <% if logged_in? %>
+              <a rel="nofollow" data-method="delete" href="/sessions/logout">
+                <span><i class="glyphicon glyphicon-log-out"></i>&nbsp;Sign out</span>
+              </a>
+            <% else %>
+              <a rel="nofollow" href="/sessions/signin">
+                <span><i class="glyphicon glyphicon-log-in"></i>&nbsp;Sign in</span>
+              </a>
+            <% end %>
+          </li>
+        </ul>
+        <% if logged_in? %>
+          <p class="navbar-text navbar-right">Signed in as
+            <a href="<%= '/profiles/users' %>">
+              <span><i class="glyphicon glyphicon-user"></i>&nbsp;<small><%= current_user.name %></small></span>
+            </a>
+          </p>
+        <% end %>
+      </div>
+
+    </div>
+  </nav>
+
+</header>

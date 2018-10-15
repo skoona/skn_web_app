@@ -1,0 +1,63 @@
+<% content_for(:title, "Secured Resources") %>
+
+<article>
+  <div class="jumbotron earth-snow">
+    <h1 class="big-chalk">Resources</h1>
+    <p>
+      You have been granted access to certain secure documentation resources.  This page demonstrates
+      advanced ContentProfile features used to provide you personalized and secure access to protected resources.
+    </p>
+    <p>
+      <a class="btn btn-primary btn-lg" href="/about" role="button">Learn more about Secured Resources</a>
+    </p>
+  </div>
+
+  <% if resources.success %>
+    <h3 class="text-center">Welcome <%= resources.payload.cp.display_name %><br/><small>Secured Documents</small></h3>
+
+    <section>
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false" data-accessible-url="<%= resources.payload.get_demo_content_object_url %>">
+
+        <% resources.payload.display_groups.each_with_index do |cpe, idx| -%>
+
+          <div class="col-md-6">
+            <div class="panel panel-primary" style="padding-bottom: 6px;" >
+              <div class="panel-heading" role="tab" id="heading<%= cpe.topic_type %><%= cpe.content_type %>">
+                <h4 class="panel-title">
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= cpe.topic_type %><%= cpe.content_type %>" aria-expanded="true" aria-controls="collapse<%= cpe.topic_type %><%= cpe.content_type %>">
+                   <%= cpe.description %>
+                  </a>
+                </h4>
+              </div>
+              <div id="collapse<%= cpe.topic_type %><%= cpe.content_type %>" class="panel-collapse collapse <%= 'in' if idx < 2 %>" role="tabpanel" aria-labelledby="heading<%= cpe.topic_type %><%= cpe.content_type %>">
+                <div class="panel-body bg-warning" style="max-height:298px; overflow: auto;">
+                    <% cpe.content.each do |ctn| -%>
+
+                      <div class="well well-sm col-md-6 runtime-item bg-warning" data-package="<%== ctn.to_json %>"  data-mh="files-group">
+                          <div class="text-center">
+                            <%= choose_content_icons(ctn) %>
+                          </div>
+                          <h5 class="text-center"><%= ctn.filename %><br /><small><%= ctn.size %> | <%= ctn.created %></small><br/><small><%= ctn.source %></small></h5>
+                      </div>
+
+                    <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <% end %>
+
+      </div>
+    </section>
+  <% else %>
+    <section>
+      <div class="well well-lg text-primary bg-success col-md-offset-2 col-md-8">
+        <h2 class="text-center">No resources are available on your profile.</h2>
+        <p class="lead text-center">Please contact the administrator to verify your permissions.</p>
+        <p class="text-center">Message: 0404</p>
+      </div>
+    </section>
+  <% end %>
+
+</article>

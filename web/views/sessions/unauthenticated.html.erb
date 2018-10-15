@@ -1,0 +1,18 @@
+<% content_for(:title, "Not Authenticated") %>
+
+
+<article>
+  <div class="container">
+
+      <h3 class="text-center">Authentication Failure</h3>
+      <div class="well text-warning">
+        <p class="text-center">You must be signed In to view <%= attempted_page_name.empty? ? 'that page' : attempted_page_name %>!</p>
+        <p class="text-center">
+          <a href="<%= '/sessions/signin' %>">
+            <span><i class="glyphicon glyphicon-log-in fa-lg"></i>&nbsp;Please Sign in.</span>
+          </a>
+        </p>
+      </div>
+
+  </div>
+</article>

@@ -1,0 +1,22 @@
+<% content_for(:title, "Home") %>
+
+<article>
+
+  <div class="jumbotron halo-pano">
+    <h1 class="big-chalk">Skoona's Exploration</h1>
+    <p><strong><em>Basic Application</em></strong> from scratch using Roda</p>
+    <p>
+      <a class="btn btn-primary btn-lg" href="/about" role="button">More...</a>
+    </p>
+  </div>
+
+  <h3 class="text-center">Welcome <%= logged_in? ? current_user.name : 'UserName' %><br/><small>Landing Page</small></h3>
+
+  <section>
+    <p class="lead">
+      The fullest demonstration is enabled when you signin. Please go to the <em>About</em> page for credentials.  All signed in
+      users have access to the <em>Resources</em> page that shows the accessible documents based their profile.
+    </p>
+  </section>
+
+</article>
