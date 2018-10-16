@@ -202,7 +202,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    skn_utils (5.1.0)
+    skn_utils (5.1.1)
       concurrent-ruby (~> 1)
       deep_merge (~> 1)
       thor (~> 0)
