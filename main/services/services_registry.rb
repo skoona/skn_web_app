@@ -20,20 +20,19 @@ module Services
 
     # Get Remote File Catalog
     def resources
-      Content::CommandHandler.call(
+      command =
           Content::Commands::RetrieveAvailableResources.new(username: ctx.current_user.username)
-      )
+      SknApp.config.registry.resolve(:content_processor).call( command )
     end
 
     # Get Remote Files
-    def get_content_object
-      Content::CommandHandler.call(
-          Content::Commands::RetrieveResourceContent.new(
-              { id: req.params['id'],
+    def content
+      command =
+          Content::Commands::RetrieveResourceContent.new({
+               id: req.params['id'],
                username: ctx.current_user.username,
-               content_type: req.params['content_type'] }
-          )
-      )
+               content_type: req.params['content_type'] })
+      SknApp.config.registry.resolve(:content_processor).call( command )
     end
 
   end # end class

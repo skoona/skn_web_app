@@ -9,9 +9,6 @@ require_relative 'boot'
 # Web Interface
 begin
 
-  # Load Web-Only Gems
-  require 'warden'
-
   # Load Web Interface
   require './web/web'
 

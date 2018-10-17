@@ -25,9 +25,9 @@ class SknWeb
   def wrap_send_file_response(service_response, response_status, error_status=:not_found)
     # Generate content for Response
     if service_response.success
-      response['Content-Type'] = service_response.content_type
-      response['content-disposition'] = service_response.content_disposition
-      request.halt response.finish_with_body(IO.binread(service_response.payload))
+      response['Content-Type'] = service_response.payload.content_type
+      response['content-disposition'] = service_response.payload.content_disposition
+      request.halt response.finish_with_body(IO.binread(service_response.payload.payload))
     else
       http_response = generate_standard_json_error_message( response_status, error_status, "Request: #{env['REQUEST_URI']}, Message: #{service_response.message}")
       response.status = http_response[:status]

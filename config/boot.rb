@@ -32,6 +32,12 @@ begin
     end
   end
 
+  flist =  Dir['./tmp/content/*'] # remove prior downloads
+  unless flist.empty?
+    fcount = File.delete(*flist)
+    puts "TMP Folder Cleaner: Unlinked # #{fcount} files."
+  end
+
   # Load Main Business App
   require_relative '../main/main'
 

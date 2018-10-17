@@ -28,13 +28,13 @@ class SknWeb < Roda
         store: true,
         strategies: [:password, :remember_token, :api_auth],
         action: 'sessions/unauthenticated' }
-    config.failure_app    = self
-    config[:public_pages] = SknSettings.security.public_pages
-    config[:production]   = opts[:env].production?
+    config.failure_app       = self
+    config[:public_pages]    = SknSettings.security.public_pages
+    config[:production]      = opts[:env].production?
     config[:asset_paths_ary] = SknSettings.security.asset_paths
-    config[:sys_logger]   = (Logging.logger['WAR'] || SknApp.logger)
+    config[:sys_logger]      = Logging.logger['WAR']
     config[:session_expires] = SknSettings.security.session_expires.to_i
-    config[:remember_for] = SknSettings.security.remembered_for.to_i
+    config[:remember_for]    = SknSettings.security.remembered_for.to_i
   end
 
   use Rack::MethodOverride

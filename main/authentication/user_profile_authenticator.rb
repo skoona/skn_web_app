@@ -17,10 +17,10 @@ module Authentication
       user = user_repo.find_by(username: username)
       if user && self.valid_digest?(user.password_digest, password)
         userp = self.new(user)
-        debug_log "#{self.name}##{__method__}(success) Returns => #{userp.name}"
+        debug_log "#{self.name}##{__method__}(success) Returns => #{user_profile_name(userp)}"
         userp
       else
-        debug_log "#{self.name}##{__method__}(Failed) Returns => #{user&.name}"
+        debug_log "#{self.name}##{__method__}(Failed) Returns => #{user_profile_name(user)}"
         nil
       end
     end
@@ -34,9 +34,13 @@ module Authentication
         cache_provider_delete_user(userp)
         userp = nil  # force login as time has expired or cache was purged.
       end
-      debug_log "#{self.name}##{__method__}() Returns => #{userp&.name}"
+      debug_log "#{self.name}##{__method__}() Returns => #{user_profile_name(userp)}"
 
       userp
+    end
+
+    def self.user_profile_name(userp)
+      !!userp ? userp&.name : 'No User!'
     end
 
     # Warden calls this

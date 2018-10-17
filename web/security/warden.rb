@@ -1,6 +1,4 @@
 # web/warden.rb
-# require 'warden'
-
 
 class Warden::SessionSerializer
   ##
@@ -181,7 +179,7 @@ module Warden::Mixins::Common
   end
 
   def logger
-    @_sys_logger ||= config[:sys_logger] rescue Logging.logger['WAR']
+    env['warden'].config[:sys_logger]
   end
 
   def reset_session!
