@@ -73,10 +73,10 @@ Aside from DB migrations and increasing RSPec test coverage, I'm done with this 
 6. Require vs AutoLoad? `Autoload` would prevent loading the whole app when it's not needed during test or CLI operations.  However, `Require` does allow me to control what's loaded and any dependencies with greater clarity.
     * Don't really care yet!  Using the Ruby Require and Require_Relative methods.
 7. Not sure about the lifecycle of critical objects in Roda yet.  How to create something that will survive the request/response cycle; like the database component.
-    * Again, DI Container maybe helpful.  I'm current using SknUtils::NestedResult class adapted to be a Global Container for regular yaml settings and holding application resources.
+    * Again, DI Container maybe helpful.  I'm current using SknUtils::Configurable class as the DI container.  ROM-DB is dragging some type of container, might switch to it after some review.
 
 
-### File Tree
+### File Tree: Done
 ```bash
 [SknWebApp]
     .
@@ -96,9 +96,20 @@ Aside from DB migrations and increasing RSPec test coverage, I'm done with this 
     ├── spec                    - RSpec Tests
     ├── i18n                    - Message Translation files
     ├── main                    - Business UseCases and Integrations
-    │   ├── persistence/        - ROM-DB DataSource management
     │   ├── authentication/     - User Management
+    │   │   ├── user_profile.rb - Main UserProfile Authentication Provider
+    │   │   ├── ...             - Warden based security modules
+    │   │   └── authentication.rb  - Require management
+    │   ├── persistence/        - ROM-DB DataSource management
+    │   │   ├── entity/         - Data collections
+    │   │   ├── relations/      - ROM Stuff
+    │   │   ├── repositories/   - ROM Stuff
+    │   │   └── persistence.rb  - Require management and ROM/Types registrations
     │   ├── services/           - API services and ServicesRegistry
+    │   │   ├── commands/       - Handler commands for API content requests
+    │   │   ├── handlers/       - IO Handler
+    │   │   ├── providers/      - Business Requests
+    │   │   └── services.rb     - Require management and Registry registrations
     │   ├── utils/              - Application Utilities
     │   └── main.rb             - LoadPath Management
     ├── public
