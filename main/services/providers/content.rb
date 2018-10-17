@@ -23,6 +23,12 @@ module Services
         self.new(options).call(command)
       end
 
+      def initialize(options={})
+        @_do_request   = options.fetch(:get_request_handler, SknApp.registry.resolve(:get_handler))
+        @_start_time   = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+        @description   = SknSettings.content_service.description
+      end
+
       # Services::Content::Commands::RetrieveResourceContent
       def call(cmd)
         resp = cmd.valid? ? process(cmd) : SknFailure.call( self.class.name, "[#{cmd.class.name}] #{@description}: Unknown Request type" )
@@ -35,15 +41,6 @@ module Services
         SknFailure.call(self.class.name, "#{e.class.name}::#{e.message}, Duration: #{duration}")
       end
 
-    private
-
-      def initialize(options={})
-        @_do_request   = options.fetch(:get_request_handler,
-                                       SknApp.config.registry.resolve(:get_handler))
-        @_start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-        @description   = SknSettings.content_service.description
-      end
-
       # SknSuccess or SknFailure
       def process(cmd)
         resp = @_do_request.call(cmd.uri)
@@ -52,10 +49,8 @@ module Services
         else
           logger.info "#{__method__}: Failed => #{resp.value} with #{resp.class.name} #{resp.message}"
         end
+
         resp
-      rescue StandardError => e
-        logger.warn "#{self.class.name}##{__method__} Failure Request: Provider: #{@description}, klass=#{e.class.name}, cause=#{e.message}, Backtrace=#{e.backtrace[0..1]}"
-        SknFailure.call(self.class.name, "[Content] #{e.class.name}:#{e.message}| #{@description}")
       end
 
       def logger

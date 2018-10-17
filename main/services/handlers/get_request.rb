@@ -8,18 +8,16 @@ module Services
 
     class GetRequest
       def self.call(uri, options={})
-        new(options).call(uri)
+        self.new(options).call(uri)
       end
 
       def initialize(options={})
-        @_file_handler = options.fetch(:file_handler,
-                                       SknApp.config.registry.resolve(:file_handler))
+        @_file_handler = options.fetch(:file_handler, SknApp.registry.resolve(:file_handler))
         @api_username  = options.fetch(:api_user, SknSettings.content_service.username)
         @api_password  = options.fetch(:api_pass, SknSettings.content_service.password)
         @content_read_timeout      = SknSettings.content_service.read_timeout_seconds
         @content_open_wait_timeout = SknSettings.content_service.open_timeout_seconds
       end
-
 
       # SknSuccess or SknFailure
       def call(uri)

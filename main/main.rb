@@ -11,7 +11,7 @@ require_relative 'services/services'
 
 # ##
 # Configure our command processors
-SknApp.config.registry
+SknApp.registry
   .register(:catalog_provider, ->(command) { Services::Providers::Catalog.call(command) }, call: false)
   .register(:content_provider, ->(command) { Services::Providers::Content.call(command) }, call: false)
   .register(:file_handler, ->(response) { Services::Handlers::File.call(response) }, call: false)

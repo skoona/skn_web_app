@@ -8,7 +8,7 @@ module Services
 
     class File
       def self.call(response, options={})
-        new(options).call(response)
+        self.new(options).call(response)
       end
 
       def initialize(options={})
