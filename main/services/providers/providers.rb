@@ -1,7 +1,8 @@
 # ##
-# File: ./main/services/processors/content.rb
+# File: ./main/services/providers/content.rb
 
 # Each Directory has a same named file that handles it's includes
 # ##
 
 require_relative 'content'
+require_relative 'catalog'

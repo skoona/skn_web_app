@@ -12,6 +12,7 @@
 class CommandFailedValidation < StandardError
 end
 
-require_relative 'content/content'
-require_relative 'processors/processors'
+require_relative 'commands/commands'
+require_relative 'handlers/handlers'
+require_relative 'providers/providers'
 require_relative 'services_registry'
