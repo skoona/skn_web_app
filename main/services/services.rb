@@ -9,10 +9,6 @@
 # ##
 
 # Represents Rest request failure of an
-class MetaDataRequestFailed < StandardError
-end
-class ContentRequestFailed < StandardError
-end
 class CommandFailedValidation < StandardError
 end
 
