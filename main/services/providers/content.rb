@@ -45,9 +45,9 @@ module Services
       def process(cmd)
         resp = @_do_request.call(cmd.uri)
         if resp.success
-          logger.info "#{__method__}: Returns => #{resp.payload.filename} as: #{resp.payload.content_type}, with #{resp.message}"
+          logger.info "#{self.class.name}##{__method__}: Returns => #{resp.payload.filename} as: #{resp.payload.content_type}, with #{resp.message}"
         else
-          logger.info "#{__method__}: Failed => #{resp.value} with #{resp.class.name} #{resp.message}"
+          logger.info "#{self.class.name}##{__method__}: Failed => #{resp.value} with #{resp.class.name} #{resp.message}"
         end
 
         resp
