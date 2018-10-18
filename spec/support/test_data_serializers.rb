@@ -25,7 +25,7 @@ module TestDataSerializers
     content = "application/pdf"
     headers = {name: "temperature-and-humidity"}
     temp = ""
-    fpath = SknApp.root.join('spec', 'factories', "docs", "DHT22.pdf")
+    fpath = SknApp.root.join('spec', 'factories', "notes", "DHT22.pdf")
     file = Tempfile.open(["pdf_file",".pdf"])
     file.binmode
     file.write(IO.binread(fpath))
@@ -33,7 +33,7 @@ module TestDataSerializers
     file.rewind
     # do not close it -- user will close this file
     # Rack::Multipart::UploadedFile.new(tempfile: file, filename: "DHT22.pdf", head: headers, type: content)
-    Rack::Multipart::UploadedFile.new(SknApp.root.join('spec', 'factories', "docs", "DHT22.pdf"), content, true)
+    Rack::Multipart::UploadedFile.new(SknApp.root.join('spec', 'factories', "notes", "DHT22.pdf"), content, true)
   end
 
   def file_download_response

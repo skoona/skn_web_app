@@ -32,7 +32,7 @@ chdir APP_ROOT do
     "./tmp",
     "./tmp/pids",
     "./tmp/content",
-    "./docs",
+    "./notes",
     "./log",
     "./coverage"
   ], verbose: true)
