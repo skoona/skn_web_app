@@ -80,21 +80,23 @@ Aside from DB migrations and increasing RSPec test coverage, I'm done with this 
 ```bash
 [SknWebApp]
     .
+    ├── config.ru               - Rack Initializer
+    ├── Gemfile                 - Gem Requirements
     ├── assets
     │   ├── stylesheets/        - Sass based CSS
     │   └── javascript/         - JQuery, BootStrap, and general Javascript
+    ├── bin
+    │   ├── console             - Command line console [app|web] defaults web
+    │   └── setup               - One-time installer script
     ├── config
     │   ├── initializers/       - SknApp, SknSettings, and Logging are initialized here
     │   ├── settings/           - SknSettings Environment-biased Application Settings
-    │   ├── puma.rb
+    │   ├── puma.rb             - Puma local webserver
     │   ├── settings.yml        - Default Application Settings
     │   ├── version.rb          - Application Version Object
     │   ├── boot_web.rb         - Load Main and Web Application components
-    │   └── boot.rb             - Load Main Application
-    ├── config.ru               - Rack Initializer
-    ├── Gemfile                 - Gem Requirements
-    ├── spec                    - RSpec Tests
-    ├── i18n                    - Message Translation files
+    │   └── boot.rb             - Load Main Application Only
+    ├── i18n/                   - Message Translation files
     ├── main                    - Business UseCases and Integrations
     │   ├── authentication/     - User Management
     │   │   ├── user_profile.rb - Main UserProfile Authentication Provider
@@ -109,12 +111,14 @@ Aside from DB migrations and increasing RSPec test coverage, I'm done with this 
     │   │   ├── commands/       - Handler commands for API content requests
     │   │   ├── handlers/       - IO Handler
     │   │   ├── providers/      - Business Requests
-    │   │   └── services.rb     - Require management and Registry registrations
+    │   │   ├── services_registry.rb  - Web Interface to Primary Application
+    │   │   └── services.rb     - Require management and Service registrations
     │   ├── utils/              - Application Utilities
     │   └── main.rb             - LoadPath Management
     ├── public
     │   ├── images/             - View Images
     │   └── fonts/              - View Fonts
+    ├── spec/                   - RSpec Tests
     └── web                     - Primary Web Integration
         ├── security /          - Warden's helper interface modules
         ├── helpers/            - View HTML Helpers
@@ -135,7 +139,7 @@ SknWebApp needs a database of users, which should be a shared copy of the table 
 <dl>
     <dt>Setup Application and Create Database Tables:</dt>
         <dd><code>$ bin/setup</code></dd>
-    <dt>Start Server with Puma, Port 3000:</dt>
+    <dt>Start Server with Puma, Port 8585:</dt>
         <dd><code>$ bundle exec puma config.ru -v</code></dd>
     <dt>Start Server with RackUp, Port 9292:</dt>
         <dd><code>$ rackup</code></dd>
@@ -161,7 +165,7 @@ module Types
 end
 
 ##
-# Entity
+# Entities
 ##
 
   class User < ROM::Struct
