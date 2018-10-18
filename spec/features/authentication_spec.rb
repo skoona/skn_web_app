@@ -49,6 +49,16 @@ feature "Authentication process for all users."  do
     given(:user) { page_user_eptester }
 
     scenario "Sign in with username and password credentials." do
+      stub_request(:get, "http://vserv.skoona.net:8080/profiles/api_in_action?username=eptester").
+          with(
+              headers: {
+                  'Accept'=>'*/*',
+                  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+                  'Authorization'=>'Basic ZGV2ZWxvcGVyOmRldmVsb3Blcjk5',
+                  'User-Agent'=>'Ruby'
+              }).
+          to_return(status: 200, body: "", headers: {})
+
       visit '/sessions/signin'
       fill_in 'sessions_username', :with =>  user.username
       fill_in 'sessions_password', :with =>  "demos"
@@ -58,6 +68,16 @@ feature "Authentication process for all users."  do
     end
 
     scenario "Returned to originally requested page after signing in." do
+      stub_request(:get, "http://vserv.skoona.net:8080/profiles/api_in_action?username=eptester").
+          with(
+              headers: {
+                  'Accept'=>'*/*',
+                  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+                  'Authorization'=>'Basic ZGV2ZWxvcGVyOmRldmVsb3Blcjk5',
+                  'User-Agent'=>'Ruby'
+              }).
+          to_return(status: 200, body: "", headers: {})
+
       visit '/profiles/users'
       expect(current_path).to eq '/sessions/unauthenticated'
       expect(page).to have_content('You must be signed In to view users!')
@@ -71,6 +91,16 @@ feature "Authentication process for all users."  do
     end
 
     scenario "Returned to Home page after sign out." do
+      stub_request(:get, "http://vserv.skoona.net:8080/profiles/api_in_action?username=eptester").
+          with(
+              headers: {
+                  'Accept'=>'*/*',
+                  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+                  'Authorization'=>'Basic ZGV2ZWxvcGVyOmRldmVsb3Blcjk5',
+                  'User-Agent'=>'Ruby'
+              }).
+          to_return(status: 200, body: "", headers: {})
+
       visit '/profiles/users'
       expect(current_path).to eq '/sessions/unauthenticated'
       expect(page).to have_content('You must be signed In to view ')

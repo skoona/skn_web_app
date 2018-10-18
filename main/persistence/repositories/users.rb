@@ -3,7 +3,7 @@
 module Repositories
 
   class Users < ROM::Repository[:users]
-    struct_namespace Entity
+    struct_namespace Entities
 
     def all
       users.map_to(Entity::User).to_a

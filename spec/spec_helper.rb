@@ -8,6 +8,8 @@ require 'rspec'
 require 'rspec-roda'
 require 'rack/test'
 
+require 'webmock/rspec'
+
 require 'capybara'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
@@ -19,6 +21,7 @@ require 'support/utilities'
 require 'support/test_data_serializers'
 require 'support/capybara'
 require 'support/feature_helpers'
+require 'factories/resource_data'
 
 RSpec.configure do |config|
   Kernel.srand config.seed
@@ -56,6 +59,9 @@ RSpec.configure do |config|
   config.include TestDataSerializers
   config.include Utilities
   config.include FeatureHelpers, type: :feature       # logged_as(user) session injection for cucumber/capybara
+
+  config.include ResourceData
+  config.include WebMock::API
 
   config.before(:each) do
     Capybara.use_default_driver       # switch back to default driver

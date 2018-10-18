@@ -43,6 +43,16 @@ describe "Application pages Respond Correctly. " do
     end
 
     it "/profiles/resources returns Requested Page" do
+      stub_request(:get, "http://vserv.skoona.net:8080/profiles/api_in_action?username=emtester").
+          with(
+              headers: {
+                  'Accept'=>'*/*',
+                  'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+                  'Authorization'=>'Basic ZGV2ZWxvcGVyOmRldmVsb3Blcjk5',
+                  'User-Agent'=>'Ruby'
+              }).
+          to_return(status: 200, body: "", headers: {})
+
       get "/profiles/resources"
       expect(last_response.status).to eq 200
     end

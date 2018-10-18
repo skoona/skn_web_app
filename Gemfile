@@ -75,4 +75,5 @@ group :test do
   gem 'simplecov', :require => false
   gem "rom-factory"
   gem 'poltergeist'
+  gem 'webmock'
 end

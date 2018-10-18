@@ -2,7 +2,7 @@
 #
 # Output Records via Mapping
 
-module Entity
+module Entities
 
   class User < ROM::Struct
     attribute :id, Types::Strict::Int

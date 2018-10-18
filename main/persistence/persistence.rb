@@ -12,7 +12,7 @@ module Types
 
 end
 
-require_relative 'entity/user'
+require_relative 'entities/user'
 require_relative 'relations/users'
 require_relative 'repositories/users'
 

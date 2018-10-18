@@ -20,6 +20,8 @@ GEM
     cliver (0.3.2)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     deep_merge (1.2.1)
     diff-lcs (1.3)
     docile (1.3.1)
@@ -60,6 +62,7 @@ GEM
       i18n (>= 0.7)
     ffi (1.9.25)
     forme (1.8.0)
+    hashdiff (0.3.7)
     i18n (1.1.1)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -191,6 +194,7 @@ GEM
       parser (~> 2.3, >= 2.3.0)
       puma
       websocket
+    safe_yaml (1.0.4)
     sass (3.6.0)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -219,6 +223,10 @@ GEM
       execjs (>= 0.3.0, < 3)
     warden (1.2.7)
       rack (>= 1.0)
+    webmock (3.4.2)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
     websocket (1.2.8)
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
@@ -273,6 +281,7 @@ DEPENDENCIES
   time_math2
   uglifier
   warden
+  webmock
 
 BUNDLED WITH
    1.16.6
