@@ -6,6 +6,7 @@
 
 require_relative 'config/boot_web'
 require 'rspec/core/rake_task'
+require 'rom/sql/rake_task'
 
 # ##
 # require existing tasks
@@ -25,7 +26,7 @@ task(:default).clear
 task(:test).clear
 task(:environment).clear
 
-desc "Instantiates Application Environment. NOOP"
+# desc "Instantiates Application Environment. NOOP"
 task :environment   # TODO: Already loaded
 
 # Set default and test to spec --prerequisites

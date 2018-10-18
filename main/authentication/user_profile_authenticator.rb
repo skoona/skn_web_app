@@ -65,7 +65,7 @@ module Authentication
 
 
     def self.user_repo
-      Repositories::Users.new(SknApp.config.rom)
+      Persistence::Repositories::Users.new(SknApp.config.rom)
     end
 
     # ##

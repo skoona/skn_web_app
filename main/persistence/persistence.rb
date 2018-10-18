@@ -31,7 +31,8 @@ module Skn
 
     config.gateways[:default].use_logger(Logging.logger['ROM'])
 
-    config.register_relation Relations::Users
+    # config.register_relation Relations::Users
+    config.auto_registration('./main/persistence/', namespace: 'Persistence')
   end
 
   SknApp.config.rom = ROM.container(db_config)
