@@ -41,6 +41,8 @@ require 'capybara/poltergeist'
 require 'capybara-screenshot/rspec'
 require 'rack_session_access/capybara'
 
+require 'dry/container/stub'
+
 require 'support/test_users'
 require 'support/utilities'
 require 'support/test_data_serializers'

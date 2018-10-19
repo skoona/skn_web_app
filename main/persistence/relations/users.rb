@@ -1,4 +1,4 @@
-# File: ./persistence/relations/users.rb
+# File: ./main/persistence/relations/users.rb
 #
 
 # Define a canonical schema for this relation. This will be used when we
@@ -18,21 +18,22 @@ module Relations
       attribute :remember_token, Types::Strict::String.optional
       attribute :password_reset_token, Types::Strict::String.optional
       attribute :password_reset_date, Types::Strict::Time.optional
-      attribute :assigned_groups, ::Types::SerializedArrayWrite.meta(desc: :yaml_array), read: ::Types::SerializedArrayRead.meta(desc: :yaml_array)
-      attribute :roles, ::Types::SerializedArrayWrite.meta(desc: :yaml_array), read: ::Types::SerializedArrayRead.meta(desc: :yaml_array)
+      attribute :assigned_groups, ::Types::SerializedArrayWrite.meta(desc: 'assigned_groups'), read: ::Types::SerializedArrayRead.meta(desc: 'assigned_groups')
+      attribute :roles, ::Types::SerializedArrayWrite.meta(desc: 'roles'), read: ::Types::SerializedArrayRead.meta(desc: 'roles')
       attribute :active, Types::Strict::Bool
       attribute :file_access_token, Types::Strict::String.optional
       attribute :created_at, Types::Strict::Time
       attribute :updated_at, Types::Strict::Time
       attribute :person_authenticated_key, Types::Strict::String
-      attribute :assigned_roles, ::Types::SerializedArrayWrite.meta(desc: :yaml_array), read: ::Types::SerializedArrayRead.meta(desc: :yaml_array)
+      attribute :assigned_roles, ::Types::SerializedArrayWrite.meta(desc: 'assigned_roles'), read: ::Types::SerializedArrayRead.meta(desc: 'assigned_roles')
       attribute :remember_token_digest , Types::Strict::String.optional
-      attribute :user_options, ::Types::SerializedArrayWrite.meta(desc: :yaml_array), read: ::Types::SerializedArrayRead.meta(desc: :yaml_array)
+      attribute :user_options, ::Types::SerializedArrayWrite.meta(desc: 'user_options'), read: ::Types::SerializedArrayRead.meta(desc: 'user_options')
 
       primary_key :id
 
     end
 
+    # See Namespace in Repository
     auto_struct true
 
     # Define some composable, reusable query methods to return filtered

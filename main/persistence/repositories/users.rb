@@ -1,4 +1,4 @@
-# File: ./persistence/repositories/users.rb
+# File: ./main/persistence/repositories/users.rb
 #
 
 module Repositories

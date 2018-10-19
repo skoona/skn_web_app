@@ -32,8 +32,8 @@ gem 'uglifier'
 # Core Components
 gem 'dry-types'
 gem 'dry-monads'
-# gem 'dry-struct'
-# gem 'dry-container'
+gem 'dry-struct'
+gem 'dry-container'
 # gem 'dry-auto_inject'
 
 

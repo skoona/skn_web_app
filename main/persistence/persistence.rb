@@ -1,10 +1,9 @@
 # File: ./main/persistence/persistence.rb
 #
 
+Dry::Types.load_extensions(:maybe)
 module Types
   include Dry::Types.module
-
-  Dry::Types.load_extensions(:maybe)
 
   Email = String.constrained(format: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
   SerializedArrayRead = Types.Constructor(Types.Array(Types::Strict::String)) { |yaml_str| yaml_str.nil? ? [] : Psych.load(yaml_str).compact }
@@ -26,15 +25,9 @@ end
 
 
 
-module Skn
-
-# ## Initialize rom-rb
-#
-# rom-rb is built to be non-intrusive. When we initialize it here, all our
-# relations and commands are bundled into a single container that we can
-# inject into our app.
 # ##
-
+# Initialize rom-rb
+module Skn
   db_config = ROM::Configuration.new(:sql, SknSettings.postgresql.url,
                        user: SknSettings.postgresql.user,
                        password: SknSettings.postgresql.password) do |config|
@@ -49,7 +42,9 @@ module Skn
 
 end
 
+# ##
+# Shutdown and Disconnect Rom-RB
 at_exit do
   SknApp.config.rom.disconnect
-  SknApp.logger.perf 'Closed ROM-DB... '
+  SknApp.logger.perf 'Closed ROM-RB... '
 end

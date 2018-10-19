@@ -242,7 +242,9 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   concurrent-ruby
+  dry-container
   dry-monads
+  dry-struct
   dry-types
   erubis
   execjs
