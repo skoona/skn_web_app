@@ -11,14 +11,12 @@ describe Services::ServicesRegistry, 'Service Registry Module. ' do
     }
   }
   after :all do
-    SknApp.registry
-        .register(:catalog_provider, ->(command) { Services::Providers::Catalog.call(command) }, call: false)
-        .register(:content_provider, ->(command) { Services::Providers::Content.call(command) }, call: false)
+    SknApp.registry.unstub(:catalog_provider).unstub(:content_provider)
   end
-  before :each do
-    SknApp.registry
-        .register(:catalog_provider, double(:response, call: SknSuccess.call( catalog_json() )), call: false)
-        .register(:content_provider, double(:response, call: SknSuccess.call( content_response() )), call: false)
+  before :all do
+    SknApp.registry.enable_stubs!
+      .stub(:catalog_provider, double(:response, call: SknSuccess.call( catalog_json() )) )
+      .stub(:content_provider, double(:response, call: SknSuccess.call( content_response() )) )
   end
 
   it '#resources returns expected object. ' do

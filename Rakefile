@@ -4,7 +4,9 @@
 #      https://ruby.github.io/rake/
 #
 
+# Starting in Web Interface because of RSpec, otherwise App mode is preffered.
 require_relative 'config/boot_web'
+
 require 'rspec/core/rake_task'
 require 'rom/sql/rake_task'
 

@@ -10,7 +10,7 @@ class SknApp
   # Enable SknApp.env, SknApp.root, and SknApp.logger
   self.env    = ::SknUtils::EnvStringHandler.new( ENV.fetch('RACK_ENV', 'development') )
   self.root   = ::SknUtils::EnvStringHandler.new( Dir.pwd )
-  self.registry = ::SknRegistry.new
+  self.registry = ::Dry::Container.new #::SknRegistry.new
   # will do logger later
 
 end
