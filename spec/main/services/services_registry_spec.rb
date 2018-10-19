@@ -10,13 +10,9 @@ describe Services::ServicesRegistry, 'Service Registry Module. ' do
         )
     }
   }
-  after :all do
-    SknApp.registry.unstub(:catalog_provider).unstub(:content_provider)
-  end
-  before :all do
-    SknApp.registry.enable_stubs!
-      .stub(:catalog_provider, double(:response, call: SknSuccess.call( catalog_json() )) )
-      .stub(:content_provider, double(:response, call: SknSuccess.call( content_response() )) )
+  before :each do
+    allow(SknApp.registry).to receive(:resolve).with(:catalog_provider).and_return( double(:response, call: SknSuccess.call( catalog_json() )) )
+    allow(SknApp.registry).to receive(:resolve).with(:content_provider).and_return( double(:response, call: SknSuccess.call( content_response() )) )
   end
 
   it '#resources returns expected object. ' do
