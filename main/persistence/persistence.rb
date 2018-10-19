@@ -12,9 +12,19 @@ module Types
 
 end
 
-require_relative 'entities/user'
-require_relative 'relations/users'
-require_relative 'repositories/users'
+
+['entities', 'relations',
+ 'commands', 'repositories'].each do |db_mod|
+  Dir["./main/persistence/#{db_mod}/*.rb"].each do |rom_resource|
+    begin
+      require rom_resource
+    rescue LoadError => e
+      puts "[ROM Setup] Ignoring Exception for: #{e.class} #{e.message}"
+    end
+  end
+end
+
+
 
 module Skn
 
@@ -31,10 +41,15 @@ module Skn
 
     config.gateways[:default].use_logger(Logging.logger['ROM'])
 
-    # config.register_relation Relations::Users
-    config.auto_registration('./main/persistence/', namespace: 'Persistence')
+    config.register_relation Relations::Users
+    # config.auto_registration('./main/persistence/', namespace: false)
   end
 
   SknApp.config.rom = ROM.container(db_config)
 
+end
+
+at_exit do
+  SknApp.config.rom.disconnect
+  SknApp.logger.perf 'Closed ROM-DB... '
 end
