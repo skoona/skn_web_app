@@ -9,12 +9,12 @@ describe Services::Providers::Content, 'Resource Content Providers' do
   }
 
   it 'Returns Success object. ' do
-    skn = double(:response, call: SknSuccess.call( content_response() ))
+    skn = double(:response, call: SknSuccess.call( rd_content_response() ))
     expect(described_class.call(cmd, {get_request_handler: skn }).success).to be true
   end
 
   it 'Returns Failure object. ' do
-    skn = double(:response, call: SknFailure.call( content_response() ))
+    skn = double(:response, call: SknFailure.call( rd_content_response() ))
     expect(described_class.call(cmd, {get_request_handler: skn }).success).to be false
   end
 

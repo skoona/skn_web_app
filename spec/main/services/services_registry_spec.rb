@@ -11,8 +11,8 @@ describe Services::ServicesRegistry, 'Service Registry Module. ' do
     }
   }
   before :each do
-    allow(SknApp.registry).to receive(:resolve).with(:catalog_provider).and_return( double(:response, call: SknSuccess.call( catalog_json() )) )
-    allow(SknApp.registry).to receive(:resolve).with(:content_provider).and_return( double(:response, call: SknSuccess.call( content_response() )) )
+    allow(SknApp.registry).to receive(:resolve).with(:catalog_provider).and_return( double(:response, call: SknSuccess.call( rd_catalog_json() )) )
+    allow(SknApp.registry).to receive(:resolve).with(:content_provider).and_return( double(:response, call: SknSuccess.call( rd_content_response() )) )
   end
 
   it '#resources returns expected object. ' do

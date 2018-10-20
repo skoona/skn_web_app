@@ -1,6 +1,6 @@
 
 module ResourceData
-  def content_response
+  def rd_content_response
     content =
         {
             success: true,
@@ -12,7 +12,7 @@ module ResourceData
             payload: 'tmp_filename'
         }
   end
-  def catalog_failed_json
+  def rd_catalog_failed_json
     catalog = {
         success: false,
         message: "Unknown Request type",
@@ -20,7 +20,7 @@ module ResourceData
     }
     JSON.dump(catalog)
   end
-  def catalog_json
+  def rd_catalog_json
     catalog = {
         "package"=> {
             "success"=>true,
