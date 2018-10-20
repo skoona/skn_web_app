@@ -3,6 +3,7 @@
 #
 
 module Skn
+
   begin
     Logging.init(:debug, :info, :perf, :warn, :error, :fatal)
     dpattern = Logging.layouts.pattern({ pattern: '%d %c:%-5l %m\n',
@@ -27,15 +28,10 @@ module Skn
     SknApp.logger.info "SknApp Logger Setup Complete! loaded: #{SknApp.env}"
 
   rescue StandardError => e
-    puts e
-    puts e.message
-    puts e.backtrace
-
-    SknApp.configure do |cfg|
-      cfg.logger = Logging.logger['SKN']
-    end
-    # SknApp.logger = Logger.new($stdout)
-
-    SknApp.logger.error "SknApp Logger Setup Failed: loaded: #{SknApp.env}, EMsg: #{e.message}"
+    $stderr. e
+    $stderr. e.message
+    $stderr. e.backtrace
+    exit 1
   end
+
 end

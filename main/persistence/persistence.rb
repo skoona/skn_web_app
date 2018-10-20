@@ -1,17 +1,6 @@
 # File: ./main/persistence/persistence.rb
 #
 
-Dry::Types.load_extensions(:maybe)
-module Types
-  include Dry::Types.module
-
-  Email = String.constrained(format: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i)
-  SerializedArrayRead = Types.Constructor(Types.Array(Types::Strict::String)) { |yaml_str| yaml_str.nil? ? [] : Psych.load(yaml_str).compact }
-  SerializedArrayWrite = Types.Constructor(Types::Strict::String) { |ary_of_str| ary_of_str.nil? ? Psych.dump([])  : Psych.dump(ary_of_str.compact) }
-
-end
-
-
 ['entities', 'relations',
  'commands', 'repositories'].each do |db_mod|
   Dir["./main/persistence/#{db_mod}/*.rb"].each do |rom_resource|

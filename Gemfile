@@ -34,6 +34,7 @@ gem 'dry-types'
 gem 'dry-monads'
 gem 'dry-struct'
 gem 'dry-container'
+gem 'dry-validation'
 gem 'dry-auto_inject'
 
 
