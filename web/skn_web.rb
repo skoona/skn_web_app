@@ -3,16 +3,20 @@
 #
 # - Main Web Interface Entry
 
+require 'roda/session_middleware'
+
 class SknWeb < Roda
 
   opts[:root] = SknApp.root
   opts[:env]  = SknApp.env
 
-  use Rack::CommonLogger
+  # use Rack::CommonLogger
   use Rack::Reloader
 
   use Rack::Cookies
-  use Rack::Session::Cookie, {
+  use RodaSessionMiddleware, {
+      secure: true,
+      sessions_convert_symbols: true,
       secret: SknSettings.skn_base.secret,
       key: SknSettings.skn_base.session_key,
       domain: SknSettings.skn_base.session_domain
@@ -36,6 +40,20 @@ class SknWeb < Roda
     config[:session_expires] = SknSettings.security.session_expires.to_i
     config[:remember_for]    = SknSettings.security.remembered_for.to_i
   end
+
+  # plugin :content_security_policy do |csp|
+  #   csp.default_src :none # deny everything by default
+  #   csp.style_src :self
+  #   csp.script_src :self
+  #   csp.connect_src :self
+  #   csp.img_src :self
+  #   csp.font_src :self
+  #   csp.form_action :self
+  #   csp.base_uri :none
+  #   csp.frame_ancestors :none
+  #   csp.block_all_mixed_content
+  #   csp.report_uri 'CSP_REPORT_URI'
+  # end
 
   use Rack::MethodOverride
 

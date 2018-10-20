@@ -7,12 +7,15 @@ module Services
   module Handlers
 
     class GetRequest
+
+      # include Skn::Import.args["file_response_handler"]  #-- did not work, likely because of the #call model
+
       def self.call(uri, options={})
         self.new(options).call(uri)
       end
 
-      def initialize(options={})
-        @_file_handler = options.fetch(:file_handler, SknApp.registry.resolve(:file_handler))
+      def initialize(options)
+        @_file_response_handler = options.fetch("file_response_handler", SknApp.registry.resolve("file_response_handler"))
         @api_username  = options.fetch(:api_user, SknSettings.content_service.username)
         @api_password  = options.fetch(:api_pass, SknSettings.content_service.password)
         @content_read_timeout      = SknSettings.content_service.read_timeout_seconds
@@ -36,7 +39,7 @@ module Services
           completion = SknFailure.call(self.class.name, "#{response.code}:#{response.message}")
 
         elsif response['content-disposition']&.include?('filename=')
-          completion = @_file_handler.call(response)
+          completion = @_file_response_handler.call(response)
 
         else
           completion = SknSuccess.call(response.body)

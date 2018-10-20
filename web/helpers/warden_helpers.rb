@@ -66,6 +66,7 @@ class SknWeb
   def logout(*list_of_scopes)
     warden.raw_session.inspect
     warden.logout(*list_of_scopes)
+    # clear_session
   end
 
 end

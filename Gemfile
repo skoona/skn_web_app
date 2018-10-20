@@ -34,7 +34,7 @@ gem 'dry-types'
 gem 'dry-monads'
 gem 'dry-struct'
 gem 'dry-container'
-# gem 'dry-auto_inject'
+gem 'dry-auto_inject'
 
 
 # General Utilities

@@ -25,7 +25,7 @@ module Services
       end
 
       def initialize(options={})
-        @_do_request   = options.fetch(:get_request_handler, SknApp.registry.resolve(:get_handler))
+        @_do_request   = options.fetch('get_request_handler', SknApp.registry.resolve("get_request_handler"))
         @_start_time = Process.clock_gettime(Process::CLOCK_MONOTONIC)
         @description   = SknSettings.content_service.description
       end

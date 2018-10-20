@@ -86,7 +86,7 @@ feature "Authentication process for all users."  do
       fill_in 'sessions_password', :with => "demos"
       click_button 'Sign in'
 
-      expect(current_path).to eq '/profiles/resources'
+      expect(current_path).to eq '/profiles/users'
       click_link 'Sign out'
     end
 
@@ -109,7 +109,7 @@ feature "Authentication process for all users."  do
       fill_in 'sessions_password', :with => "demos"
       click_button 'Sign in'
 
-      expect(current_path).to eq '/profiles/resources'
+      expect(current_path).to eq '/profiles/users'
       click_link 'Sign out'
       expect(current_path).to eq '/'
       expect(page).to have_title("Home")

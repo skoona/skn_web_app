@@ -18,7 +18,11 @@ module Skn
     Logging.logger.root.level = (SknApp.env.production? ? :info : :debug )
     Logging.logger.root.appenders = (SknApp.env.test? ? arolling : [astdout, arolling] )
 
-    SknApp.logger = Logging.logger['SKN']
+    # SknApp.logger = Logging.logger['SKN']
+
+    SknApp.configure do |cfg|
+      cfg.logger = Logging.logger['SKN']
+    end
 
     SknApp.logger.info "SknApp Logger Setup Complete! loaded: #{SknApp.env}"
 
@@ -26,7 +30,12 @@ module Skn
     puts e
     puts e.message
     puts e.backtrace
-    SknApp.logger = Logger.new($stdout)
+
+    SknApp.configure do |cfg|
+      cfg.logger = Logging.logger['SKN']
+    end
+    # SknApp.logger = Logger.new($stdout)
+
     SknApp.logger.error "SknApp Logger Setup Failed: loaded: #{SknApp.env}, EMsg: #{e.message}"
   end
 end

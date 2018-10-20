@@ -25,6 +25,8 @@ GEM
     deep_merge (1.2.1)
     diff-lcs (1.3)
     docile (1.3.1)
+    dry-auto_inject (0.4.6)
+      dry-container (>= 0.3.4)
     dry-configurable (0.7.0)
       concurrent-ruby (~> 1.0)
     dry-container (0.6.0)
@@ -242,6 +244,7 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   concurrent-ruby
+  dry-auto_inject
   dry-container
   dry-monads
   dry-struct

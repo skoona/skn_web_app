@@ -22,7 +22,7 @@ module Services
     def resources
       command =
           Commands::RetrieveAvailableResources.new(username: ctx.current_user.username)
-      SknApp.registry.resolve(:catalog_provider).call( command )
+      SknApp.registry.resolve("catalog_provider").call( command )
     end
 
     # Get Remote Files
@@ -31,7 +31,7 @@ module Services
           Commands::RetrieveResourceContent.new({id: req.params['id'],
                                                  username: ctx.current_user.username,
                                                  content_type: req.params['content_type'] })
-      SknApp.registry.resolve(:content_provider).call( command )
+      SknApp.registry.resolve("content_provider").call( command )
     end
 
   end # end class

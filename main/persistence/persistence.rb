@@ -38,8 +38,9 @@ module Skn
     # config.auto_registration('./main/persistence/', namespace: false)
   end
 
-  SknApp.config.rom = ROM.container(db_config)
-
+  SknApp.configure do |cfg|
+    cfg.rom = ROM.container(db_config)
+  end
 end
 
 # ##
