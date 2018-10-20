@@ -1,4 +1,4 @@
-# File: ./main/persistence/relations/users.rb
+# File: ./main/persistence/relations/topic_type_opts.rb
 #
 
 # Define a canonical schema for this relation. This will be used when we
@@ -7,18 +7,20 @@
 
 module Relations
 
-  class ProfileTypes < ROM::Relation[:sql]
-    schema(:profile_types, infer: false) do
+  class TopicTypeOpts < ROM::Relation[:sql]
+    schema(:topic_type_opts, infer: false) do
 
       attribute :id, Types::Serial
-      attribute :name, Types::Strict::String
+      attribute :value, Types::Strict::String
       attribute :description, Types::Strict::String
+      attribute :type_name, Types::Strict::String
+      attribute :topic_type_id, Types::ForeignKey(:topic_types)
       attribute :created_at, Types::Strict::Time
       attribute :updated_at, Types::Strict::Time
 
       primary_key :id
       associations do
-        has_one   :content_profiles
+        belongs_to :topic_types
       end
     end
 

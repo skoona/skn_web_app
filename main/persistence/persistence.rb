@@ -26,10 +26,15 @@ module Skn
     config.register_relation Relations::Users,
                              Relations::ProfileTypes,
                              Relations::ContentProfiles,
+                             Relations::ContentProfileEntries,
                              Relations::ContentProfilesEntries,
-                             Relations::ContentProfileEntries
-
-
+                             Relations::UserRoles,
+                             Relations::UserGroupRoles,
+                             Relations::UserGroupRolesUserRoles,
+                             Relations::ContentTypes,
+                             Relations::ContentTypeOpts,
+                             Relations::TopicTypes,
+                             Relations::TopicTypeOpts
   end
 
   SknApp.configure do |cfg|

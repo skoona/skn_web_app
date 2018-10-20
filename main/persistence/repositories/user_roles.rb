@@ -1,9 +1,9 @@
-# File: ./main/persistence/repositories/users.rb
+# File: ./main/persistence/repositories/user_roles.rb
 #
 
 module Repositories
 
-  class Users < ROM::Repository[:users]
+  class UserRoles < ROM::Repository[:user_roles]
     struct_namespace Entities
     commands :create, update: :by_pk, delete: :by_pk
 
@@ -16,29 +16,27 @@ module Repositories
     end
 
     def all
-      users.to_a
+      user_roles.to_a
     end
 
     def query(conditions)
-      users.where(conditions).to_a
-    end
-
-    def by_pak(pak)
-      find_by(person_authenticated_key: pak)
+      user_roles.where(conditions).to_a
     end
 
     def [](id)
-      users.by_id(id).one
+      user_roles.by_id(id).one
     end
 
     def by_id(id)
-      users.by_id(id).one
+      user_roles.by_id(id).one
     end
 
     def find_by(col_val_hash)
-      users.where(col_val_hash).one
+      user_roles.where(col_val_hash).one
     end
 
+    # def group_roles(id)
+    #   user_roles.where(id: id).combine([:user_group_roles]).one
+    # end
   end
-
 end

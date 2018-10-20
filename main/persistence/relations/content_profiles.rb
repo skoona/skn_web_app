@@ -12,7 +12,7 @@ module Relations
 
       attribute :id, Types::Serial
       attribute :person_authentication_key, Types::Strict::String
-      attribute :profile_type_id, Types::Int
+      attribute :profile_type_id, Types::ForeignKey(:profile_types)
       attribute :authentication_provider, Types::String
       attribute :username, Types::Strict::String
       attribute :display_name, Types::Strict::String

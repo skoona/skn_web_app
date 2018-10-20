@@ -13,10 +13,10 @@ module Relations
       attribute :id, Types::Serial
 
       attribute :topic_value, ::Types::SerializedArrayWrite.meta(desc: 'topic_value'), read: ::Types::SerializedArrayRead.meta(desc: 'topic_value')
-      attribute :topic_type, ::Types::SerializedArrayWrite.meta(desc: 'topic_type'), read: ::Types::SerializedArrayRead.meta(desc: 'topic_type')
+      attribute :topic_type, Types::Strict::String
       attribute :topic_type_description, Types::Strict::String
       attribute :content_value, ::Types::SerializedArrayWrite.meta(desc: 'content_value'), read: ::Types::SerializedArrayRead.meta(desc: 'content_value')
-      attribute :content_type, ::Types::SerializedArrayWrite.meta(desc: 'content_type'), read: ::Types::SerializedArrayRead.meta(desc: 'content_type')
+      attribute :content_type, Types::Strict::String
       attribute :content_type_description, Types::Strict::String
       attribute :description, Types::Strict::String
       attribute :created_at, Types::Strict::Time

@@ -5,6 +5,15 @@ module Repositories
 
   class ContentProfiles < ROM::Repository[:content_profiles]
     struct_namespace Entities
+    commands :create, update: :by_pk, delete: :by_pk
+
+    def create(attrs)
+      super root.changeset(:create, attrs).map(:add_timestamps)
+    end
+
+    def update(attrs)
+      super root.changeset(:update, attrs).map(:add_timestamps)
+    end
 
     def all
       content_profiles.to_a
@@ -30,5 +39,8 @@ module Repositories
       content_profiles.where(col_val_hash).one
     end
 
+    def profile(id)
+      content_profiles.where(id: id).combine([:profile_types, :content_profile_entries]).one
+    end
   end
 end

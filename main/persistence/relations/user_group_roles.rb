@@ -1,4 +1,4 @@
-# File: ./main/persistence/relations/users.rb
+# File: ./main/persistence/relations/user_group_roles.rb
 #
 
 # Define a canonical schema for this relation. This will be used when we
@@ -7,18 +7,19 @@
 
 module Relations
 
-  class ProfileTypes < ROM::Relation[:sql]
-    schema(:profile_types, infer: false) do
+  class UserGroupRoles < ROM::Relation[:sql]
+    schema(:user_group_roles, infer: false) do
 
       attribute :id, Types::Serial
       attribute :name, Types::Strict::String
       attribute :description, Types::Strict::String
+      attribute :group_type, Types::Strict::String
       attribute :created_at, Types::Strict::Time
       attribute :updated_at, Types::Strict::Time
 
       primary_key :id
       associations do
-        has_one   :content_profiles
+        has_many :user_roles, through: :user_group_roles_user_roles
       end
     end
 

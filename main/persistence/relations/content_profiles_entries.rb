@@ -11,8 +11,8 @@ module Relations
     schema(:content_profiles_entries, infer: false) do
 
       attribute :id, Types::Serial
-      attribute :content_profile_id, Types::Int
-      attribute :content_profile_entry_id, Types::Int
+      attribute :content_profile_id, Types::ForeignKey(:content_profiles)
+      attribute :content_profile_entry_id, Types::ForeignKey(:content_profile_entries)
 
       primary_key :id
       associations do
