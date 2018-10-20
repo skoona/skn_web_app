@@ -23,8 +23,13 @@ module Skn
 
     config.gateways[:default].use_logger(Logging.logger['ROM'])
 
-    config.register_relation Relations::Users
-    # config.auto_registration('./main/persistence/', namespace: false)
+    config.register_relation Relations::Users,
+                             Relations::ProfileTypes,
+                             Relations::ContentProfiles,
+                             Relations::ContentProfilesEntries,
+                             Relations::ContentProfileEntries
+
+
   end
 
   SknApp.configure do |cfg|

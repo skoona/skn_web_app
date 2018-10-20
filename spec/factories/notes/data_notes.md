@@ -1,5 +1,25 @@
 # SknServices Content API
 
+### Database Model
+    CREATE TABLE "users" (
+
+    CREATE TABLE "user_group_roles" (
+        CREATE TABLE "user_group_roles_user_roles" (
+    CREATE TABLE "user_roles" (
+
+    CREATE TABLE "profile_types" (
+    CREATE TABLE "content_profiles" (
+        CREATE TABLE "content_profiles_entries" (
+    CREATE TABLE "content_profile_entries" (
+    
+    CREATE TABLE "content_types" (
+        CREATE TABLE "content_type_opts" (
+
+    CREATE TABLE "topic_types" (
+        CREATE TABLE "topic_type_opts" (
+
+    CREATE TABLE "schema_migrations" (
+
 ### REQUEST APIs
 ```ruby
 resources :profiles, only: :none do
