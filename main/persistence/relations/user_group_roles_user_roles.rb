@@ -10,7 +10,7 @@ module Relations
   class UserGroupRolesUserRoles < ROM::Relation[:sql]
     schema(:user_group_roles_user_roles, infer: false) do
 
-      attribute :id, Types::Serial
+      attribute :id, ROM::SQL::Types::Serial
       attribute :user_group_role_id, Types::ForeignKey(:user_group_roles)
       attribute :user_role_id, Types::ForeignKey(:user_roles)
 

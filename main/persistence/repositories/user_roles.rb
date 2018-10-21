@@ -24,11 +24,11 @@ module Repositories
     end
 
     def [](id)
-      user_roles.by_id(id).one
+      user_roles.by_pk(id).one
     end
 
     def by_id(id)
-      user_roles.by_id(id).one
+      user_roles.by_pk(id).one
     end
 
     def find_by(col_val_hash)

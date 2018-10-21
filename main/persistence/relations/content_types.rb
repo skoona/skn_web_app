@@ -10,12 +10,12 @@ module Relations
   class ContentTypes < ROM::Relation[:sql]
     schema(:content_types, infer: false) do
 
-      attribute :id, Types::Serial
+      attribute :id, ROM::SQL::Types::Serial
       attribute :name, Types::Strict::String
       attribute :description, Types::Strict::String
       attribute :value_data_type, Types::Strict::String
-      attribute :created_at, Types::Strict::Time
-      attribute :updated_at, Types::Strict::Time
+      attribute :created_at, Types::Time
+      attribute :updated_at, Types::Time
 
       primary_key :id
       associations do
@@ -28,7 +28,7 @@ module Relations
 
     # Define some composable, reusable query methods to return filtered
     # results from our database table. We'll use them in a moment.
-    def by_id(id)
+    def by_pk(id)
       where(id: id)
     end
 

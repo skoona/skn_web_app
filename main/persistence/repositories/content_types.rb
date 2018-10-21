@@ -24,11 +24,11 @@ module Repositories
     end
 
     def [](id)
-      content_types.by_id(id).one
+      content_types.by_pk(id).one
     end
 
     def by_id(id)
-      content_types.by_id(id).one
+      content_types.by_pk(id).one
     end
 
     def find_by(col_val_hash)

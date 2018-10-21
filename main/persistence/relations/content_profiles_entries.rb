@@ -10,7 +10,7 @@ module Relations
   class ContentProfilesEntries < ROM::Relation[:sql]
     schema(:content_profiles_entries, infer: false) do
 
-      attribute :id, Types::Serial
+      attribute :id, ROM::SQL::Types::Serial
       attribute :content_profile_id, Types::ForeignKey(:content_profiles)
       attribute :content_profile_entry_id, Types::ForeignKey(:content_profile_entries)
 

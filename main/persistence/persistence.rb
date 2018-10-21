@@ -1,6 +1,7 @@
 # File: ./main/persistence/persistence.rb
 #
 
+
 ['entities', 'relations',
  'commands', 'repositories'].each do |db_mod|
   Dir["./main/persistence/#{db_mod}/*.rb"].each do |rom_resource|
@@ -17,6 +18,10 @@ end
 # ##
 # Initialize rom-rb
 module Skn
+
+  class PersonAuthenticationKeyNotUnique < ::StandardError
+  end
+
   db_config = ROM::Configuration.new(:sql, SknSettings.postgresql.url,
                        user: SknSettings.postgresql.user,
                        password: SknSettings.postgresql.password) do |config|
@@ -35,6 +40,7 @@ module Skn
                              Relations::ContentTypeOpts,
                              Relations::TopicTypes,
                              Relations::TopicTypeOpts
+                             # Commands::CreateContentProfile  -- registering commands raise an error
   end
 
   SknApp.configure do |cfg|

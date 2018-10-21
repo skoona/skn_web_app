@@ -22,8 +22,6 @@ end
 
 ENV['RACK_ENV'] = 'test'
 
-RSpec::Expectations.configuration.warn_about_potential_false_positives = true
-
 require 'simplecov'
 require 'code_coverage'
 
@@ -48,6 +46,7 @@ require 'support/capybara'
 require 'support/feature_helpers'
 require 'factories/resource_data'
 
+RSpec::Expectations.configuration.warn_about_potential_false_positives = true
 
 RSpec.configure do |config|
   Kernel.srand config.seed

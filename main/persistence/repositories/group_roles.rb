@@ -1,9 +1,9 @@
-# File: ./main/persistence/repositories/topic_types.rb
+# File: ./main/persistence/repositories/group_roles.rb
 #
 
 module Repositories
 
-  class TopicTypes < ROM::Repository[:content_types]
+  class GroupRoles < ROM::Repository[:user_group_roles]
     struct_namespace Entities
     commands :create, update: :by_pk, delete: :by_pk
 
@@ -16,27 +16,27 @@ module Repositories
     end
 
     def all
-      topic_types.to_a
+      root..to_a
     end
 
     def query(conditions)
-      topic_types.where(conditions).to_a
+      root..where(conditions).to_a
     end
 
     def [](id)
-      topic_types.by_pk(id).one
+      root..by_pk(id).one
     end
 
     def by_id(id)
-      topic_types.by_pk(id).one
+      root.by_pk(id).one
     end
 
     def find_by(col_val_hash)
-      topic_types.where(col_val_hash).one
+      root.where(col_val_hash).one
     end
 
-    def group_roles(id)
-      topic_types.where(id: id).combine([:topic_type_opts]).one
+    def with_user_roles(id)
+      root.where(id: id).combine([:user_roles]).one
     end
   end
 end

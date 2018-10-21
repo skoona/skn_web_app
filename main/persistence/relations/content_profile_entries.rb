@@ -10,7 +10,7 @@ module Relations
   class ContentProfileEntries < ROM::Relation[:sql]
     schema(:content_profile_entries, infer: false) do
 
-      attribute :id, Types::Serial
+      attribute :id, ROM::SQL::Types::Serial
 
       attribute :topic_value, ::Types::SerializedArrayWrite.meta(desc: 'topic_value'), read: ::Types::SerializedArrayRead.meta(desc: 'topic_value')
       attribute :topic_type, Types::Strict::String
@@ -19,8 +19,8 @@ module Relations
       attribute :content_type, Types::Strict::String
       attribute :content_type_description, Types::Strict::String
       attribute :description, Types::Strict::String
-      attribute :created_at, Types::Strict::Time
-      attribute :updated_at, Types::Strict::Time
+      attribute :created_at, Types::Time
+      attribute :updated_at, Types::Time
 
       primary_key :id
       associations do
@@ -33,7 +33,7 @@ module Relations
 
     # Define some composable, reusable query methods to return filtered
     # results from our database table. We'll use them in a moment.
-    def by_id(id)
+    def by_pk(id)
       where(id: id)
     end
   end

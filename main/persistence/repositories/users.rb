@@ -28,11 +28,11 @@ module Repositories
     end
 
     def [](id)
-      users.by_id(id).one
+      users.by_pk(id).one
     end
 
     def by_id(id)
-      users.by_id(id).one
+      users.by_pk(id).one
     end
 
     def find_by(col_val_hash)

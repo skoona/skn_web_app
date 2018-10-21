@@ -10,7 +10,7 @@ module Relations
   class Users < ROM::Relation[:sql]
     schema(:users, infer: false) do
 
-      attribute :id, Types::Serial
+      attribute :id, ROM::SQL::Types::Serial
       attribute :username, Types::Strict::String
       attribute :name, Types::Strict::String
       attribute :email, ::Types::Email
@@ -22,9 +22,9 @@ module Relations
       attribute :roles, ::Types::SerializedArrayWrite.meta(desc: 'roles'), read: ::Types::SerializedArrayRead.meta(desc: 'roles')
       attribute :active, Types::Strict::Bool
       attribute :file_access_token, Types::Strict::String.optional
-      attribute :created_at, Types::Strict::Time
-      attribute :updated_at, Types::Strict::Time
-      attribute :person_authenticated_key, Types::Strict::String
+      attribute :created_at, Types::Time
+      attribute :updated_at, Types::Time
+      attribute :person_authenticated_key, Types::Strict::String          # TODO Unique on create/update
       attribute :assigned_roles, ::Types::SerializedArrayWrite.meta(desc: 'assigned_roles'), read: ::Types::SerializedArrayRead.meta(desc: 'assigned_roles')
       attribute :remember_token_digest , Types::Strict::String.optional
       attribute :user_options, ::Types::SerializedArrayWrite.meta(desc: 'user_options'), read: ::Types::SerializedArrayRead.meta(desc: 'user_options')
@@ -38,7 +38,7 @@ module Relations
 
     # Define some composable, reusable query methods to return filtered
     # results from our database table. We'll use them in a moment.
-    def by_id(id)
+    def by_pk(id)
       where(id: id)
     end
 

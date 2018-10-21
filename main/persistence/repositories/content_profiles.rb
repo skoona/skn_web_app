@@ -16,11 +16,11 @@ module Repositories
     end
 
     def all
-      content_profiles.to_a
+      root.to_a
     end
 
     def query(conditions)
-      content_profiles.where(conditions).to_a
+      root.where(conditions).to_a
     end
 
     def by_pak(pak)
@@ -28,19 +28,37 @@ module Repositories
     end
 
     def [](id)
-      content_profiles.by_id(id).one
+      root.by_pk(id).one
     end
 
     def by_id(id)
-      content_profiles.by_id(id).one
+      root.by_pk(id).one
     end
 
     def find_by(col_val_hash)
-      content_profiles.where(col_val_hash).one
+      root.where(col_val_hash).one
     end
 
     def profile(id)
-      content_profiles.where(id: id).combine([:profile_types, :content_profile_entries]).one
+      root.where(id: id).combine([:content_profile_entries, :profile_types]).one
     end
+
+    def new_unique_profile(bundle)
+      pkg = bundle.dup
+      pak = pkg["person_authentication_key"] || pkg[:person_authentication_key]
+      if !!pak and !!find_by(person_authentication_key: pak)
+        SknApp.logger.error("[Repositories::ContentProfile] Create Failed!, Key: #{pak} is a duplicate key!")
+        nil
+
+      elsif pak.nil?
+        pkg[:person_authentication_key] = SecureRandom.uuid.gsub('-','')
+        root.changeset(:create, pkg).map(:add_timestamps).commit
+
+      else
+        root.changeset(:create, pkg).map(:add_timestamps).commit
+
+      end
+    end
+
   end
 end
