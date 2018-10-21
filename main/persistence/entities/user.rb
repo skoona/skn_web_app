@@ -7,7 +7,7 @@ module Entities
   class User < ROM::Struct
 
     def pak
-      person_authenticated_key
+      person_authentication_key
     end
   end
 

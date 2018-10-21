@@ -532,7 +532,7 @@ CREATE TABLE "users" (
     "file_access_token" character varying(255),
     "created_at" timestamp without time zone NOT NULL,
     "updated_at" timestamp without time zone NOT NULL,
-    "person_authenticated_key" character varying(255),
+    "person_authentication_key" character varying(255),
     "assigned_roles" character varying(4096),
     "remember_token_digest" character varying(255),
     "user_options" character varying(4096)

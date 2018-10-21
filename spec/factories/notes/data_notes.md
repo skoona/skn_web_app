@@ -1,5 +1,8 @@
 # SknServices Content API
 
+### Use Sequel to dump current database in migration format
+    $ sequel -d postgres://localhost/SknWebApp_development > 001_start.rb
+
 ### Database Model
     CREATE TABLE "users" (
 

@@ -24,7 +24,7 @@ module Repositories
     end
 
     def by_pak(pak)
-      find_by(person_authenticated_key: pak)
+      find_by(person_authentication_key: pak)
     end
 
     def [](id)

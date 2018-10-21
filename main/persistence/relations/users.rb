@@ -24,7 +24,7 @@ module Relations
       attribute :file_access_token, Types::Strict::String.optional
       attribute :created_at, Types::Time
       attribute :updated_at, Types::Time
-      attribute :person_authenticated_key, Types::Strict::String          # TODO Unique on create/update
+      attribute :person_authentication_key, Types::Strict::String          # TODO Unique on create/update
       attribute :assigned_roles, ::Types::SerializedArrayWrite.meta(desc: 'assigned_roles'), read: ::Types::SerializedArrayRead.meta(desc: 'assigned_roles')
       attribute :remember_token_digest , Types::Strict::String.optional
       attribute :user_options, ::Types::SerializedArrayWrite.meta(desc: 'user_options'), read: ::Types::SerializedArrayRead.meta(desc: 'user_options')
