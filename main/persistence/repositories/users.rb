@@ -16,11 +16,11 @@ module Repositories
     end
 
     def all
-      users.to_a
+      root.to_a
     end
 
     def query(conditions)
-      users.where(conditions).to_a
+      root.where(conditions).to_a
     end
 
     def by_pak(pak)
@@ -28,15 +28,15 @@ module Repositories
     end
 
     def [](id)
-      users.by_pk(id).one
+      root.by_pk(id).one
     end
 
     def by_id(id)
-      users.by_pk(id).one
+      root.by_pk(id).one
     end
 
     def find_by(col_val_hash)
-      users.where(col_val_hash).one
+      root.where(col_val_hash).one
     end
 
   end

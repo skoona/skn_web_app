@@ -114,15 +114,15 @@ ROM::SQL.migration do
       String :password_reset_token, size: 1024
       DateTime :password_reset_date
       String :assigned_groups, size: 8192, null: false
-      String :roles, size: 8192, null: false
+      String :roles, size: 8192
       TrueClass :active, :default=>true
       String :file_access_token
       DateTime :created_at, :null=>false
       DateTime :updated_at, :null=>false
       String :person_authentication_key, null: false
-      String :assigned_roles, size: 8192, null: false
+      String :assigned_roles, size: 8192
       String :remember_token_digest, size: 1024
-      String :user_options, size: 8192, null: false
+      String :user_options, size: 8192
       unique :person_authentication_key
     end
 

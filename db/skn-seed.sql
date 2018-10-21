@@ -1,5 +1,5 @@
 --
--- PostgreSQL database dump
+-- PostgreSQL database Seed
 --
 
 -- Dumped from database version 9.6.8
@@ -16,31 +16,6 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- TOC entry 2334 (class 0 OID 0)
--- Dependencies: 3
--- Name: SCHEMA "public"; Type: COMMENT; Schema: -; Owner: postgres
---
-
-COMMENT ON SCHEMA "public" IS 'standard public schema';
-
-
---
--- TOC entry 1 (class 3079 OID 12427)
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS "plpgsql" WITH SCHEMA "pg_catalog";
-
-
---
--- TOC entry 2335 (class 0 OID 0)
--- Dependencies: 1
--- Name: EXTENSION "plpgsql"; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION "plpgsql" IS 'PL/pgSQL procedural language';
-
 
 SET search_path = "public", pg_catalog;
 
@@ -48,617 +23,38 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
---
--- TOC entry 186 (class 1259 OID 19311)
--- Name: content_profile_entries; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "content_profile_entries" (
-    "id" integer NOT NULL,
-    "topic_value" character varying,
-    "topic_type" character varying(255),
-    "topic_type_description" character varying(255),
-    "content_value" character varying,
-    "content_type" character varying(255),
-    "content_type_description" character varying(255),
-    "description" character varying(255),
-    "created_at" timestamp without time zone NOT NULL,
-    "updated_at" timestamp without time zone NOT NULL
-);
-
-
-ALTER TABLE "content_profile_entries" OWNER TO "postgres";
-
---
--- TOC entry 185 (class 1259 OID 19309)
--- Name: content_profile_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE "content_profile_entries_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE "content_profile_entries_id_seq" OWNER TO "postgres";
-
---
--- TOC entry 2336 (class 0 OID 0)
--- Dependencies: 185
--- Name: content_profile_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE "content_profile_entries_id_seq" OWNED BY "content_profile_entries"."id";
-
-
---
--- TOC entry 188 (class 1259 OID 19322)
--- Name: content_profiles; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "content_profiles" (
-    "id" integer NOT NULL,
-    "person_authentication_key" character varying(255),
-    "profile_type_id" integer,
-    "authentication_provider" character varying(255),
-    "username" character varying(255),
-    "display_name" character varying(255),
-    "email" character varying(255),
-    "created_at" timestamp without time zone NOT NULL,
-    "updated_at" timestamp without time zone NOT NULL
-);
-
-
-ALTER TABLE "content_profiles" OWNER TO "postgres";
-
---
--- TOC entry 190 (class 1259 OID 19335)
--- Name: content_profiles_entries; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "content_profiles_entries" (
-    "id" integer NOT NULL,
-    "content_profile_id" integer,
-    "content_profile_entry_id" integer
-);
-
-
-ALTER TABLE "content_profiles_entries" OWNER TO "postgres";
-
---
--- TOC entry 189 (class 1259 OID 19333)
--- Name: content_profiles_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE "content_profiles_entries_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE "content_profiles_entries_id_seq" OWNER TO "postgres";
-
---
--- TOC entry 2337 (class 0 OID 0)
--- Dependencies: 189
--- Name: content_profiles_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE "content_profiles_entries_id_seq" OWNED BY "content_profiles_entries"."id";
-
-
---
--- TOC entry 187 (class 1259 OID 19320)
--- Name: content_profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE "content_profiles_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE "content_profiles_id_seq" OWNER TO "postgres";
-
---
--- TOC entry 2338 (class 0 OID 0)
--- Dependencies: 187
--- Name: content_profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE "content_profiles_id_seq" OWNED BY "content_profiles"."id";
-
-
---
--- TOC entry 192 (class 1259 OID 19345)
--- Name: content_type_opts; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "content_type_opts" (
-    "id" integer NOT NULL,
-    "value" character varying(255),
-    "description" character varying(255),
-    "type_name" character varying(255),
-    "content_type_id" integer,
-    "created_at" timestamp without time zone NOT NULL,
-    "updated_at" timestamp without time zone NOT NULL
-);
-
-
-ALTER TABLE "content_type_opts" OWNER TO "postgres";
-
---
--- TOC entry 191 (class 1259 OID 19343)
--- Name: content_type_opts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE "content_type_opts_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE "content_type_opts_id_seq" OWNER TO "postgres";
-
---
--- TOC entry 2339 (class 0 OID 0)
--- Dependencies: 191
--- Name: content_type_opts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE "content_type_opts_id_seq" OWNED BY "content_type_opts"."id";
-
-
---
--- TOC entry 194 (class 1259 OID 19357)
--- Name: content_types; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "content_types" (
-    "id" integer NOT NULL,
-    "name" character varying(255),
-    "description" character varying(255),
-    "value_data_type" character varying(255),
-    "created_at" timestamp without time zone NOT NULL,
-    "updated_at" timestamp without time zone NOT NULL
-);
-
-
-ALTER TABLE "content_types" OWNER TO "postgres";
-
---
--- TOC entry 193 (class 1259 OID 19355)
--- Name: content_types_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE "content_types_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE "content_types_id_seq" OWNER TO "postgres";
-
---
--- TOC entry 2340 (class 0 OID 0)
--- Dependencies: 193
--- Name: content_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE "content_types_id_seq" OWNED BY "content_types"."id";
-
-
---
--- TOC entry 196 (class 1259 OID 19368)
--- Name: profile_types; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "profile_types" (
-    "id" integer NOT NULL,
-    "name" character varying(255),
-    "description" character varying(255),
-    "created_at" timestamp without time zone NOT NULL,
-    "updated_at" timestamp without time zone NOT NULL
-);
-
-
-ALTER TABLE "profile_types" OWNER TO "postgres";
-
---
--- TOC entry 195 (class 1259 OID 19366)
--- Name: profile_types_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE "profile_types_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE "profile_types_id_seq" OWNER TO "postgres";
-
---
--- TOC entry 2341 (class 0 OID 0)
--- Dependencies: 195
--- Name: profile_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE "profile_types_id_seq" OWNED BY "profile_types"."id";
-
-
---
--- TOC entry 209 (class 1259 OID 19484)
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "schema_migrations" (
-    "version" character varying NOT NULL
-);
-
-
-ALTER TABLE "schema_migrations" OWNER TO "postgres";
-
---
--- TOC entry 198 (class 1259 OID 19379)
--- Name: topic_type_opts; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "topic_type_opts" (
-    "id" integer NOT NULL,
-    "value" character varying(255),
-    "description" character varying(255),
-    "type_name" character varying(255),
-    "topic_type_id" integer,
-    "created_at" timestamp without time zone NOT NULL,
-    "updated_at" timestamp without time zone NOT NULL
-);
-
-
-ALTER TABLE "topic_type_opts" OWNER TO "postgres";
-
---
--- TOC entry 197 (class 1259 OID 19377)
--- Name: topic_type_opts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE "topic_type_opts_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE "topic_type_opts_id_seq" OWNER TO "postgres";
-
---
--- TOC entry 2342 (class 0 OID 0)
--- Dependencies: 197
--- Name: topic_type_opts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE "topic_type_opts_id_seq" OWNED BY "topic_type_opts"."id";
-
-
---
--- TOC entry 200 (class 1259 OID 19391)
--- Name: topic_types; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "topic_types" (
-    "id" integer NOT NULL,
-    "name" character varying(255),
-    "description" character varying(255),
-    "value_based_y_n" character varying(255),
-    "created_at" timestamp without time zone NOT NULL,
-    "updated_at" timestamp without time zone NOT NULL
-);
-
-
-ALTER TABLE "topic_types" OWNER TO "postgres";
-
---
--- TOC entry 199 (class 1259 OID 19389)
--- Name: topic_types_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE "topic_types_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE "topic_types_id_seq" OWNER TO "postgres";
-
---
--- TOC entry 2343 (class 0 OID 0)
--- Dependencies: 199
--- Name: topic_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE "topic_types_id_seq" OWNED BY "topic_types"."id";
-
-
---
--- TOC entry 202 (class 1259 OID 19402)
--- Name: user_group_roles; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "user_group_roles" (
-    "id" integer NOT NULL,
-    "name" character varying(255),
-    "description" character varying(255),
-    "group_type" character varying(255),
-    "created_at" timestamp without time zone NOT NULL,
-    "updated_at" timestamp without time zone NOT NULL
-);
-
-
-ALTER TABLE "user_group_roles" OWNER TO "postgres";
-
---
--- TOC entry 201 (class 1259 OID 19400)
--- Name: user_group_roles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE "user_group_roles_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE "user_group_roles_id_seq" OWNER TO "postgres";
-
---
--- TOC entry 2344 (class 0 OID 0)
--- Dependencies: 201
--- Name: user_group_roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE "user_group_roles_id_seq" OWNED BY "user_group_roles"."id";
-
-
---
--- TOC entry 204 (class 1259 OID 19414)
--- Name: user_group_roles_user_roles; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "user_group_roles_user_roles" (
-    "id" integer NOT NULL,
-    "user_group_role_id" integer,
-    "user_role_id" integer
-);
-
-
-ALTER TABLE "user_group_roles_user_roles" OWNER TO "postgres";
-
---
--- TOC entry 203 (class 1259 OID 19412)
--- Name: user_group_roles_user_roles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE "user_group_roles_user_roles_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE "user_group_roles_user_roles_id_seq" OWNER TO "postgres";
-
---
--- TOC entry 2345 (class 0 OID 0)
--- Dependencies: 203
--- Name: user_group_roles_user_roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE "user_group_roles_user_roles_id_seq" OWNED BY "user_group_roles_user_roles"."id";
-
-
---
--- TOC entry 206 (class 1259 OID 19424)
--- Name: user_roles; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "user_roles" (
-    "id" integer NOT NULL,
-    "name" character varying(255),
-    "description" character varying(255),
-    "created_at" timestamp without time zone NOT NULL,
-    "updated_at" timestamp without time zone NOT NULL
-);
-
-
-ALTER TABLE "user_roles" OWNER TO "postgres";
-
---
--- TOC entry 205 (class 1259 OID 19422)
--- Name: user_roles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE "user_roles_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE "user_roles_id_seq" OWNER TO "postgres";
-
---
--- TOC entry 2346 (class 0 OID 0)
--- Dependencies: 205
--- Name: user_roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE "user_roles_id_seq" OWNED BY "user_roles"."id";
-
-
---
--- TOC entry 208 (class 1259 OID 19436)
--- Name: users; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE "users" (
-    "id" integer NOT NULL,
-    "username" character varying(255),
-    "name" character varying(255),
-    "email" character varying(255),
-    "password_digest" character varying(255),
-    "remember_token" character varying(255),
-    "password_reset_token" character varying(255),
-    "password_reset_date" timestamp without time zone,
-    "assigned_groups" character varying(4096),
-    "roles" character varying(4096),
-    "active" boolean DEFAULT true,
-    "file_access_token" character varying(255),
-    "created_at" timestamp without time zone NOT NULL,
-    "updated_at" timestamp without time zone NOT NULL,
-    "person_authentication_key" character varying(255),
-    "assigned_roles" character varying(4096),
-    "remember_token_digest" character varying(255),
-    "user_options" character varying(4096)
-);
-
-
-ALTER TABLE "users" OWNER TO "postgres";
-
---
--- TOC entry 207 (class 1259 OID 19434)
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE "users_id_seq"
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE "users_id_seq" OWNER TO "postgres";
-
---
--- TOC entry 2347 (class 0 OID 0)
--- Dependencies: 207
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE "users_id_seq" OWNED BY "users"."id";
-
-
---
--- TOC entry 2125 (class 2604 OID 19314)
--- Name: content_profile_entries id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "content_profile_entries" ALTER COLUMN "id" SET DEFAULT "nextval"('"content_profile_entries_id_seq"'::"regclass");
-
-
---
--- TOC entry 2126 (class 2604 OID 19325)
--- Name: content_profiles id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "content_profiles" ALTER COLUMN "id" SET DEFAULT "nextval"('"content_profiles_id_seq"'::"regclass");
-
-
---
--- TOC entry 2127 (class 2604 OID 19338)
--- Name: content_profiles_entries id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "content_profiles_entries" ALTER COLUMN "id" SET DEFAULT "nextval"('"content_profiles_entries_id_seq"'::"regclass");
-
-
---
--- TOC entry 2128 (class 2604 OID 19348)
--- Name: content_type_opts id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "content_type_opts" ALTER COLUMN "id" SET DEFAULT "nextval"('"content_type_opts_id_seq"'::"regclass");
-
-
---
--- TOC entry 2129 (class 2604 OID 19360)
--- Name: content_types id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "content_types" ALTER COLUMN "id" SET DEFAULT "nextval"('"content_types_id_seq"'::"regclass");
-
-
---
--- TOC entry 2130 (class 2604 OID 19371)
--- Name: profile_types id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "profile_types" ALTER COLUMN "id" SET DEFAULT "nextval"('"profile_types_id_seq"'::"regclass");
-
-
---
--- TOC entry 2131 (class 2604 OID 19382)
--- Name: topic_type_opts id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "topic_type_opts" ALTER COLUMN "id" SET DEFAULT "nextval"('"topic_type_opts_id_seq"'::"regclass");
-
-
---
--- TOC entry 2132 (class 2604 OID 19394)
--- Name: topic_types id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "topic_types" ALTER COLUMN "id" SET DEFAULT "nextval"('"topic_types_id_seq"'::"regclass");
-
-
---
--- TOC entry 2133 (class 2604 OID 19405)
--- Name: user_group_roles id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "user_group_roles" ALTER COLUMN "id" SET DEFAULT "nextval"('"user_group_roles_id_seq"'::"regclass");
-
-
---
--- TOC entry 2134 (class 2604 OID 19417)
--- Name: user_group_roles_user_roles id; Type: DEFAULT; Schema: public; Owner: postgres
---
 
-ALTER TABLE ONLY "user_group_roles_user_roles" ALTER COLUMN "id" SET DEFAULT "nextval"('"user_group_roles_user_roles_id_seq"'::"regclass");
 
 
 --
--- TOC entry 2135 (class 2604 OID 19427)
--- Name: user_roles id; Type: DEFAULT; Schema: public; Owner: postgres
+-- TOC entry 2314 (class 0 OID 19368)
+-- Dependencies: 196
+-- Data for Name: profile_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "user_roles" ALTER COLUMN "id" SET DEFAULT "nextval"('"user_roles_id_seq"'::"regclass");
+INSERT INTO "profile_types" VALUES (1, 'Developer', 'Open Source Independent Consultancy', '2018-01-15 14:48:56.421634', '2018-01-15 14:48:56.421634');
+INSERT INTO "profile_types" VALUES (2, 'Manager', 'Corporate Managers', '2018-01-15 14:48:56.440737', '2018-01-15 14:48:56.440737');
+INSERT INTO "profile_types" VALUES (3, 'EmployeePrimary', 'Department Managers', '2018-01-15 14:48:56.448697', '2018-01-15 14:48:56.448697');
+INSERT INTO "profile_types" VALUES (4, 'EmployeeSecondary', 'Corporate Staff', '2018-01-15 14:48:56.490582', '2018-01-15 14:48:56.490582');
+INSERT INTO "profile_types" VALUES (5, 'BranchPrimary', 'Branch Manager', '2018-01-15 14:48:56.498873', '2018-01-15 14:48:56.498873');
+INSERT INTO "profile_types" VALUES (6, 'BranchSecondary', 'Branch Staff', '2018-01-15 14:48:56.507175', '2018-01-15 14:48:56.507175');
+INSERT INTO "profile_types" VALUES (7, 'VendorPrimary', 'Partner Manager', '2018-01-15 14:48:56.515525', '2018-01-15 14:48:56.515525');
+INSERT INTO "profile_types" VALUES (8, 'VendorSecondary', 'Partner Staff', '2018-01-15 14:48:56.523806', '2018-01-15 14:48:56.523806');
 
 
 --
--- TOC entry 2136 (class 2604 OID 19439)
--- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+-- TOC entry 2306 (class 0 OID 19322)
+-- Dependencies: 188
+-- Data for Name: content_profiles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "users" ALTER COLUMN "id" SET DEFAULT "nextval"('"users_id_seq"'::"regclass");
+INSERT INTO "content_profiles" VALUES (1, '8e07bebf8050de449c73a37d2aca7cfd', 1, 'SknService::Bcrypt', 'developer', 'Skoona Developer', 'skoona@gmail.com', '2018-01-15 14:48:58.342689', '2018-01-15 14:48:58.342689');
+INSERT INTO "content_profiles" VALUES (2, 'd400080cff7114d42c4e750f07eaba5d', 2, 'SknService::Bcrypt', 'emtester', 'Department Manager', 'systems@skoona.net', '2018-01-15 14:48:58.494167', '2018-01-15 14:48:58.494167');
+INSERT INTO "content_profiles" VALUES (3, 'c96b013427bf3220f4ad6f32a17f5692', 3, 'SknService::Bcrypt', 'eptester', 'Employee Primary User', 'appdev@domain.com', '2018-01-15 14:48:58.583968', '2018-01-15 14:48:58.583968');
+INSERT INTO "content_profiles" VALUES (4, 'a1efb66f26e07a94dd893c085823f2ad', 4, 'SknService::Bcrypt', 'estester', 'Employee Secondary User', 'appdev1@domain.com', '2018-01-15 14:48:58.697712', '2018-01-15 14:48:58.697712');
+INSERT INTO "content_profiles" VALUES (5, '5f8bcc3f52726f79f204322fb190f862', 5, 'SknService::Bcrypt', 'bptester', 'Branch Primary User', 'appdev2@domain.com', '2018-01-15 14:48:58.773122', '2018-01-15 14:48:58.773122');
+INSERT INTO "content_profiles" VALUES (6, '2adf06b81402f8813ce660f6ed234835', 6, 'SknService::Bcrypt', 'bstester', 'Branch Secondary User', 'appdev3@domain.com', '2018-01-15 14:48:58.812271', '2018-01-15 14:48:58.812271');
+INSERT INTO "content_profiles" VALUES (7, '80a8da39842673963d7714f524fbc454', 7, 'SknService::Bcrypt', 'vptester', 'Vendor Primary User', 'appdev4@domain.com', '2018-01-15 14:48:58.837388', '2018-01-15 14:48:58.837388');
 
 
 --
@@ -955,21 +351,6 @@ INSERT INTO "content_profile_entries" VALUES (57, '---
 
 
 --
--- TOC entry 2306 (class 0 OID 19322)
--- Dependencies: 188
--- Data for Name: content_profiles; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO "content_profiles" VALUES (1, '8e07bebf8050de449c73a37d2aca7cfd', 1, 'SknService::Bcrypt', 'developer', 'Skoona Developer', 'skoona@gmail.com', '2018-01-15 14:48:58.342689', '2018-01-15 14:48:58.342689');
-INSERT INTO "content_profiles" VALUES (2, 'd400080cff7114d42c4e750f07eaba5d', 2, 'SknService::Bcrypt', 'emtester', 'Department Manager', 'systems@skoona.net', '2018-01-15 14:48:58.494167', '2018-01-15 14:48:58.494167');
-INSERT INTO "content_profiles" VALUES (3, 'c96b013427bf3220f4ad6f32a17f5692', 3, 'SknService::Bcrypt', 'eptester', 'Employee Primary User', 'appdev@domain.com', '2018-01-15 14:48:58.583968', '2018-01-15 14:48:58.583968');
-INSERT INTO "content_profiles" VALUES (4, 'a1efb66f26e07a94dd893c085823f2ad', 4, 'SknService::Bcrypt', 'estester', 'Employee Secondary User', 'appdev1@domain.com', '2018-01-15 14:48:58.697712', '2018-01-15 14:48:58.697712');
-INSERT INTO "content_profiles" VALUES (5, '5f8bcc3f52726f79f204322fb190f862', 5, 'SknService::Bcrypt', 'bptester', 'Branch Primary User', 'appdev2@domain.com', '2018-01-15 14:48:58.773122', '2018-01-15 14:48:58.773122');
-INSERT INTO "content_profiles" VALUES (6, '2adf06b81402f8813ce660f6ed234835', 6, 'SknService::Bcrypt', 'bstester', 'Branch Secondary User', 'appdev3@domain.com', '2018-01-15 14:48:58.812271', '2018-01-15 14:48:58.812271');
-INSERT INTO "content_profiles" VALUES (7, '80a8da39842673963d7714f524fbc454', 7, 'SknService::Bcrypt', 'vptester', 'Vendor Primary User', 'appdev4@domain.com', '2018-01-15 14:48:58.837388', '2018-01-15 14:48:58.837388');
-
-
---
 -- TOC entry 2308 (class 0 OID 19335)
 -- Dependencies: 190
 -- Data for Name: content_profiles_entries; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -1069,6 +450,20 @@ INSERT INTO "content_profiles_entries" VALUES (91, 7, 57);
 
 
 --
+-- TOC entry 2312 (class 0 OID 19357)
+-- Dependencies: 194
+-- Data for Name: content_types; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO "content_types" VALUES (1, 'Experience', 'Monthly Experience Reports and Files', 'String', '2018-01-15 14:48:56.551743', '2018-01-15 14:48:56.551743');
+INSERT INTO "content_types" VALUES (2, 'Commission', 'Monthly Commission Reports and Files', 'String', '2018-01-15 14:48:56.609505', '2018-01-15 14:48:56.609505');
+INSERT INTO "content_types" VALUES (3, 'Notification', 'Email Notification of Related Events', 'String', '2018-01-15 14:48:56.625795', '2018-01-15 14:48:56.625795');
+INSERT INTO "content_types" VALUES (4, 'LicensedStates', 'Business Operational Metric', 'Integer', '2018-01-15 14:48:56.672317', '2018-01-15 14:48:56.672317');
+INSERT INTO "content_types" VALUES (5, 'Activity', 'Partner Relationship Reports', 'String', '2018-01-15 14:48:56.766625', '2018-01-15 14:48:56.766625');
+INSERT INTO "content_types" VALUES (6, 'FileDownload', 'Project Related Resources', 'String', '2018-01-15 14:48:56.777389', '2018-01-15 14:48:56.777389');
+
+
+--
 -- TOC entry 2310 (class 0 OID 19345)
 -- Dependencies: 192
 -- Data for Name: content_type_opts; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -1150,43 +545,24 @@ INSERT INTO "content_type_opts" VALUES (73, '*.log', 'Project Related by Documen
 
 
 --
--- TOC entry 2312 (class 0 OID 19357)
--- Dependencies: 194
--- Data for Name: content_types; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO "content_types" VALUES (1, 'Experience', 'Monthly Experience Reports and Files', 'String', '2018-01-15 14:48:56.551743', '2018-01-15 14:48:56.551743');
-INSERT INTO "content_types" VALUES (2, 'Commission', 'Monthly Commission Reports and Files', 'String', '2018-01-15 14:48:56.609505', '2018-01-15 14:48:56.609505');
-INSERT INTO "content_types" VALUES (3, 'Notification', 'Email Notification of Related Events', 'String', '2018-01-15 14:48:56.625795', '2018-01-15 14:48:56.625795');
-INSERT INTO "content_types" VALUES (4, 'LicensedStates', 'Business Operational Metric', 'Integer', '2018-01-15 14:48:56.672317', '2018-01-15 14:48:56.672317');
-INSERT INTO "content_types" VALUES (5, 'Activity', 'Partner Relationship Reports', 'String', '2018-01-15 14:48:56.766625', '2018-01-15 14:48:56.766625');
-INSERT INTO "content_types" VALUES (6, 'FileDownload', 'Project Related Resources', 'String', '2018-01-15 14:48:56.777389', '2018-01-15 14:48:56.777389');
-
-
---
--- TOC entry 2314 (class 0 OID 19368)
--- Dependencies: 196
--- Data for Name: profile_types; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO "profile_types" VALUES (1, 'Developer', 'Open Source Independent Consultancy', '2018-01-15 14:48:56.421634', '2018-01-15 14:48:56.421634');
-INSERT INTO "profile_types" VALUES (2, 'Manager', 'Corporate Managers', '2018-01-15 14:48:56.440737', '2018-01-15 14:48:56.440737');
-INSERT INTO "profile_types" VALUES (3, 'EmployeePrimary', 'Department Managers', '2018-01-15 14:48:56.448697', '2018-01-15 14:48:56.448697');
-INSERT INTO "profile_types" VALUES (4, 'EmployeeSecondary', 'Corporate Staff', '2018-01-15 14:48:56.490582', '2018-01-15 14:48:56.490582');
-INSERT INTO "profile_types" VALUES (5, 'BranchPrimary', 'Branch Manager', '2018-01-15 14:48:56.498873', '2018-01-15 14:48:56.498873');
-INSERT INTO "profile_types" VALUES (6, 'BranchSecondary', 'Branch Staff', '2018-01-15 14:48:56.507175', '2018-01-15 14:48:56.507175');
-INSERT INTO "profile_types" VALUES (7, 'VendorPrimary', 'Partner Manager', '2018-01-15 14:48:56.515525', '2018-01-15 14:48:56.515525');
-INSERT INTO "profile_types" VALUES (8, 'VendorSecondary', 'Partner Staff', '2018-01-15 14:48:56.523806', '2018-01-15 14:48:56.523806');
-
-
---
 -- TOC entry 2327 (class 0 OID 19484)
 -- Dependencies: 209
 -- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+--
+-- INSERT INTO "schema_migrations" VALUES ('20181021035542');
+--
 
-INSERT INTO "schema_migrations" VALUES ('20181021035542');
 
+--
+-- TOC entry 2318 (class 0 OID 19391)
+-- Dependencies: 200
+-- Data for Name: topic_types; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO "topic_types" VALUES (1, 'Branch', 'Branch Actions for a specific branch', 'N', '2018-01-15 14:48:56.810891', '2018-01-15 14:48:56.810891');
+INSERT INTO "topic_types" VALUES (2, 'Partner', 'This Corporate Account', 'N', '2018-01-15 14:48:56.867125', '2018-01-15 14:48:56.867125');
+INSERT INTO "topic_types" VALUES (3, 'UserGroups', 'Shared access to project working files', 'N', '2018-01-15 14:48:56.879029', '2018-01-15 14:48:56.879029');
 
 --
 -- TOC entry 2316 (class 0 OID 19379)
@@ -1209,17 +585,6 @@ INSERT INTO "topic_type_opts" VALUES (12, 'Developer', 'Project Workfiles', 'Use
 
 
 --
--- TOC entry 2318 (class 0 OID 19391)
--- Dependencies: 200
--- Data for Name: topic_types; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO "topic_types" VALUES (1, 'Branch', 'Branch Actions for a specific branch', 'N', '2018-01-15 14:48:56.810891', '2018-01-15 14:48:56.810891');
-INSERT INTO "topic_types" VALUES (2, 'Partner', 'This Corporate Account', 'N', '2018-01-15 14:48:56.867125', '2018-01-15 14:48:56.867125');
-INSERT INTO "topic_types" VALUES (3, 'UserGroups', 'Shared access to project working files', 'N', '2018-01-15 14:48:56.879029', '2018-01-15 14:48:56.879029');
-
-
---
 -- TOC entry 2320 (class 0 OID 19402)
 -- Dependencies: 202
 -- Data for Name: user_group_roles; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -1233,6 +598,31 @@ INSERT INTO "user_group_roles" VALUES (5, 'BranchPrimary', 'Branch Manager', 'Br
 INSERT INTO "user_group_roles" VALUES (6, 'BranchSecondary', 'Branch Staff', 'Branch Staff', '2018-01-15 14:48:54.742769', '2018-01-15 14:48:54.742769');
 INSERT INTO "user_group_roles" VALUES (7, 'VendorPrimary', 'Partner Manager', 'Partner Admin', '2018-01-15 14:48:54.750934', '2018-01-15 14:48:54.750934');
 INSERT INTO "user_group_roles" VALUES (8, 'VendorSecondary', 'Partner Staff', 'Partner Staff', '2018-01-15 14:48:54.758923', '2018-01-15 14:48:54.758923');
+
+
+
+--
+-- TOC entry 2324 (class 0 OID 19424)
+-- Dependencies: 206
+-- Data for Name: user_roles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO "user_roles" VALUES (1, 'Services.Action.Admin', 'Employee Managers', '2018-01-15 14:48:54.294171', '2018-01-15 14:48:54.294171');
+INSERT INTO "user_roles" VALUES (2, 'Services.Action.Primary', 'Branch Managers', '2018-01-15 14:48:54.3507', '2018-01-15 14:48:54.3507');
+INSERT INTO "user_roles" VALUES (3, 'Services.Action.Developer', 'Super User or Developer', '2018-01-15 14:48:54.400687', '2018-01-15 14:48:54.400687');
+INSERT INTO "user_roles" VALUES (4, 'Services.Branch.Commission.Access', 'Access Branch Commission Statements', '2018-01-15 14:48:54.41792', '2018-01-15 14:48:54.41792');
+INSERT INTO "user_roles" VALUES (5, 'Services.Branch.Experience.Access', 'Access Branch Experience Report', '2018-01-15 14:48:54.425887', '2018-01-15 14:48:54.425887');
+INSERT INTO "user_roles" VALUES (6, 'Services.Branch.Notification.Access', 'Access Branch Notification Mailings', '2018-01-15 14:48:54.434019', '2018-01-15 14:48:54.434019');
+INSERT INTO "user_roles" VALUES (7, 'Services.Branch.LicensedStates.Access', 'Access Branch Licensed USA States', '2018-01-15 14:48:54.442468', '2018-01-15 14:48:54.442468');
+INSERT INTO "user_roles" VALUES (8, 'Services.UserGroups.FileDownload.Access', 'Access Shared UserGroup Resources', '2018-01-15 14:48:54.4922', '2018-01-15 14:48:54.4922');
+INSERT INTO "user_roles" VALUES (9, 'Services.Partner.Activity.Access', 'Access Partner Project Resources', '2018-01-15 14:48:54.525497', '2018-01-15 14:48:54.525497');
+INSERT INTO "user_roles" VALUES (10, 'Services.Action.ResetPassword', 'Reset Forgotten Password via EMail', '2018-01-15 14:48:54.568151', '2018-01-15 14:48:54.568151');
+INSERT INTO "user_roles" VALUES (11, 'Services.Action.Use.ContentProfile', 'Consumer of Authorization Content Profile', '2018-01-15 14:48:54.576063', '2018-01-15 14:48:54.576063');
+INSERT INTO "user_roles" VALUES (12, 'Services.Action.Use.UserRecords', 'Consumer of User Records', '2018-01-15 14:48:54.584343', '2018-01-15 14:48:54.584343');
+INSERT INTO "user_roles" VALUES (13, 'Services.UserGroups.Admin.FileDownload', 'Administer Datafile Downloads', '2018-01-15 14:48:54.592661', '2018-01-15 14:48:54.592661');
+INSERT INTO "user_roles" VALUES (14, 'Services.UserGroups.Use.FileDownload', 'Consumer of Datafile Downloads', '2018-01-15 14:48:54.601042', '2018-01-15 14:48:54.601042');
+INSERT INTO "user_roles" VALUES (15, 'Services.Action.Admin.ContentProfile', 'Administer Authorization Content Profile', '2018-01-15 14:48:54.608944', '2018-01-15 14:48:54.608944');
+INSERT INTO "user_roles" VALUES (16, 'Services.Action.Admin.UserRecords', 'Administer User Records', '2018-01-15 14:48:54.617721', '2018-01-15 14:48:54.617721');
 
 
 --
@@ -1332,31 +722,6 @@ INSERT INTO "user_group_roles_user_roles" VALUES (88, 8, 10);
 INSERT INTO "user_group_roles_user_roles" VALUES (89, 8, 11);
 INSERT INTO "user_group_roles_user_roles" VALUES (90, 8, 12);
 INSERT INTO "user_group_roles_user_roles" VALUES (91, 8, 14);
-
-
---
--- TOC entry 2324 (class 0 OID 19424)
--- Dependencies: 206
--- Data for Name: user_roles; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-INSERT INTO "user_roles" VALUES (1, 'Services.Action.Admin', 'Employee Managers', '2018-01-15 14:48:54.294171', '2018-01-15 14:48:54.294171');
-INSERT INTO "user_roles" VALUES (2, 'Services.Action.Primary', 'Branch Managers', '2018-01-15 14:48:54.3507', '2018-01-15 14:48:54.3507');
-INSERT INTO "user_roles" VALUES (3, 'Services.Action.Developer', 'Super User or Developer', '2018-01-15 14:48:54.400687', '2018-01-15 14:48:54.400687');
-INSERT INTO "user_roles" VALUES (4, 'Services.Branch.Commission.Access', 'Access Branch Commission Statements', '2018-01-15 14:48:54.41792', '2018-01-15 14:48:54.41792');
-INSERT INTO "user_roles" VALUES (5, 'Services.Branch.Experience.Access', 'Access Branch Experience Report', '2018-01-15 14:48:54.425887', '2018-01-15 14:48:54.425887');
-INSERT INTO "user_roles" VALUES (6, 'Services.Branch.Notification.Access', 'Access Branch Notification Mailings', '2018-01-15 14:48:54.434019', '2018-01-15 14:48:54.434019');
-INSERT INTO "user_roles" VALUES (7, 'Services.Branch.LicensedStates.Access', 'Access Branch Licensed USA States', '2018-01-15 14:48:54.442468', '2018-01-15 14:48:54.442468');
-INSERT INTO "user_roles" VALUES (8, 'Services.UserGroups.FileDownload.Access', 'Access Shared UserGroup Resources', '2018-01-15 14:48:54.4922', '2018-01-15 14:48:54.4922');
-INSERT INTO "user_roles" VALUES (9, 'Services.Partner.Activity.Access', 'Access Partner Project Resources', '2018-01-15 14:48:54.525497', '2018-01-15 14:48:54.525497');
-INSERT INTO "user_roles" VALUES (10, 'Services.Action.ResetPassword', 'Reset Forgotten Password via EMail', '2018-01-15 14:48:54.568151', '2018-01-15 14:48:54.568151');
-INSERT INTO "user_roles" VALUES (11, 'Services.Action.Use.ContentProfile', 'Consumer of Authorization Content Profile', '2018-01-15 14:48:54.576063', '2018-01-15 14:48:54.576063');
-INSERT INTO "user_roles" VALUES (12, 'Services.Action.Use.UserRecords', 'Consumer of User Records', '2018-01-15 14:48:54.584343', '2018-01-15 14:48:54.584343');
-INSERT INTO "user_roles" VALUES (13, 'Services.UserGroups.Admin.FileDownload', 'Administer Datafile Downloads', '2018-01-15 14:48:54.592661', '2018-01-15 14:48:54.592661');
-INSERT INTO "user_roles" VALUES (14, 'Services.UserGroups.Use.FileDownload', 'Consumer of Datafile Downloads', '2018-01-15 14:48:54.601042', '2018-01-15 14:48:54.601042');
-INSERT INTO "user_roles" VALUES (15, 'Services.Action.Admin.ContentProfile', 'Administer Authorization Content Profile', '2018-01-15 14:48:54.608944', '2018-01-15 14:48:54.608944');
-INSERT INTO "user_roles" VALUES (16, 'Services.Action.Admin.UserRecords', 'Administer User Records', '2018-01-15 14:48:54.617721', '2018-01-15 14:48:54.617721');
-
 
 --
 -- TOC entry 2326 (class 0 OID 19436)
@@ -1550,6 +915,6 @@ SELECT pg_catalog.setval('"users_id_seq"', 9, true);
 -- Completed on 2018-10-14 22:17:06 EDT
 
 --
--- PostgreSQL database dump complete
+-- PostgreSQL database Seed complete
 --
 
