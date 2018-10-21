@@ -39,23 +39,15 @@ chdir APP_ROOT do
 
   puts "\n== Preparing databases =="
 
-  do_not_care_command!('dropdb SknWebApp_development')
-  do_not_care_command!('dropdb SknWebApp_production')
-  do_not_care_command!('dropdb SknWebApp_test')
-
-  puts "\n== Create Production DB =="
-    system!('createdb -T template0 SknWebApp_production')
-  puts "\n== Create Development DB =="
-    system!('createdb -T template0 SknWebApp_development')
-  puts "\n== Create Test DB =="
-    system!('createdb -T template0 SknWebApp_test')
-
   puts "\n== Restore Production DB =="
-    system!('psql SknWebApp_production < config/skn-full_postgres_db.sql ')
+    system!('RACK_ENV="production" bundle exec rake db:skn_setup[production] ')
+
   puts "\n== Restore Development DB =="
-    system!('psql SknWebApp_development < config/skn-full_postgres_db.sql ')
+    system!('RACK_ENV="development" bundle exec rake db:skn_setup[development] ')
+
   puts "\n== Restore Test DB =="
-    system!('psql SknWebApp_test < config/skn-full_postgres_db.sql ')
+    system!('RACK_ENV="test" bundle exec rake db:skn_setup[test] ')
+
   puts "\n== Done Preparing databases =="
 
   puts "\n== Running RSpec Tests =="
