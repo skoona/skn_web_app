@@ -1,11 +1,11 @@
-# File: ./main/persistence/repositories/content_types.rb
+# File: ./main/persistence/repositories/user_group_roles.rb
 #
 
 module Repositories
 
-  class ContentTypes < ROM::Repository[:content_types]
-    struct_namespace Entities
+  class UserGroupRoles < ROM::Repository[:user_group_roles]
     commands :create, update: :by_pk, delete: :by_pk
+    struct_namespace Entities
 
     def create(attrs)
       super root.changeset(:create, attrs).map(:add_timestamps)
@@ -16,37 +16,37 @@ module Repositories
     end
 
     def all
-      aggregate(:content_type_opts).to_a
+      aggregate(:user_roles).to_a
     end
 
     def query(conditions)
-      aggregate(:content_type_opts)
+      aggregate(:user_roles)
           .where(conditions)
           .to_a
     end
 
     def [](id)
-      aggregate(:content_type_opts)
+      aggregate(:user_roles)
           .by_pk(id)
           .one!
     end
 
     def by_id(id)
-      aggregate(:content_type_opts)
+      aggregate(:user_roles)
           .by_pk(id)
-          .one!
+          .one
     end
 
     def find_by(col_val_hash)
-      aggregate(:content_type_opts)
+      aggregate(:user_roles)
           .where(col_val_hash)
           .one
     end
 
-    def with_opts(id)
+    def with_roles(id)
       id.to_s.to_i.eql?(0) ?
-          root.combine([:content_type_opts]).to_a :
-            root.where(id: id).combine([:content_type_opts]).one
+        root.combine([:user_roles]).to_a :
+          root.where(id: id).combine([:user_roles]).one
     end
   end
 end

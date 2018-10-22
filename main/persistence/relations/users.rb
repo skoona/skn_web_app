@@ -24,13 +24,15 @@ module Relations
       attribute :file_access_token, Types::Strict::String.optional
       attribute :created_at, Types::Time
       attribute :updated_at, Types::Time
-      attribute :person_authentication_key, Types::Strict::String          # TODO Unique on create/update
+      attribute :person_authentication_key, ::Types::Strict::String.constrained(min_size: 32).meta(foreign_key: true, relation: :content_profile)          # TODO Unique on create/update
       attribute :assigned_roles, ::Types::SerializedArrayWrite.meta(desc: 'assigned_roles'), read: ::Types::SerializedArrayRead.meta(desc: 'assigned_roles')
       attribute :remember_token_digest , Types::Strict::String.optional
       attribute :user_options, ::Types::SerializedArrayWrite.meta(desc: 'user_options'), read: ::Types::SerializedArrayRead.meta(desc: 'user_options')
 
       primary_key :id
-
+      associations do
+        belongs_to   :content_profiles, as: :content_profile, foreign_key: :person_authentication_key, combine_key: :person_authentication_key #, override: true # foreign_key: :person_authentication_key, on_delete: :set_ignored, on_update: :set_ignored
+      end
     end
 
     # See Namespace in Repository

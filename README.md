@@ -1,7 +1,7 @@
 # SknWebApp
-An exploration into [Dry-RB](http://dry-rb.org), [Rom-DB](http://Rom-DB.org), and [Roda](https://github.com/jeremyevans/roda) tooling for Ruby Web Applications.
+An exploration into [Dry-RB](http://dry-rb.org), [Rom-DB](http://Rom-DB.org), and [Roda](https://github.com/jeremyevans/roda) tooling for Ruby Business Applications.
 
-In concept, I plan to create a `runtime` for [SknServices](https://skoona.github.io/SknServices/) content security application.  SknServices provides Admin features which enables this application to be a runtime consumer, and access content from SknServices using the API it provides for that purpose.
+In concept, I plan to create a `runtime` for the [SknServices](https://skoona.github.io/SknServices/) content security application.  SknServices provides Admin features which enables this application to be a runtime consumer, and access content from SknServices using the API it provides for that purpose.
 
 I'm looking for an alternative way to build enterprise ruby web applications.  I've tried Rails and salute it for it's Web Interface and Web framework.  However, I've never been comfortable with it's MVC development model for enterprise applications.
 
@@ -11,7 +11,7 @@ For now I will keep notes and comments here, until I get to a workable baseline.
 
 
 ### Online Demo
-* [SknWebApp Live!](http://vserv.skoona.net:4000)
+* [SknBase Live!](http://vserv.skoona.net:4000)
 * [SknServices Live!](http://vserv.skoona.net:8080)
 
     *Demo Credentials*
@@ -20,13 +20,19 @@ For now I will keep notes and comments here, until I get to a workable baseline.
 
 
 ## Progress
+#### Current Status -- Complete
+* I decided on the File System Layout and implemented the configuration changes needed to redirect affected component paths for `Rake`, and `Roda`.
+* Implemented the full database model using `ROM-RB`.  It contains 12 tables in 5 groupings.
+* Switched from SknRegistry to Dry-Container, SknConfigurable to Dry-Configurable. Also, using Dry-Types and Dry-Structs.  The remaining Dry-Rb gems had issues or side-effects I did not want to deal with at this time; an example being Dry-AutoInject not support the Class.call() model, only Class.new and some aspects of AutoLoad scattered around in several gems IMHO are just wrong headed.  
+* The package is composed of two main application elements; `SknApp`, the console baseline and business logic; and `SknWeb` the web interface code.  The bridge between the two is handled by Dry-Container and a custom class `ServiceRegistry`.
+* `SknBase` was the first implementation of this `SknServices Client`.  `SknWebApp` is a refactoring of `SknBase`, using the things I learned from writing tools to address this new frontier; i.e. Ruby Applications with a Web Interface.
 
 #### Branch: JRuby-Master, JRuby-9.1.15.0 with Warble configuration to produce Tomcat Warfile
-#### Branch: master, Ruby-2.5.0
+#### Branch: master, Ruby-2.5.1
 
 Before engaging the advanced `Dry-RB` gems and other `Gems of Interest`.  I thought to code the basic app with minimal assistance from add-ins.  The overall structure of Roda is very flexible, so other than the normal scss/js struggle there were no surprises in the web-component portion; and more importantly, no imposition on business logic structure.
 
-User information is the only database requirement I have right now.  `Rom-DB` handled the task well even though I've not invested in creating a DB migration needed to create the database and table.  I'm using a PGSQL Dump backup of the Users table and Database from an existing demo application: `SknServices`.  As a result, `Rom-DB` is overkill for this task, `Sequel` would be the correct level technology, if I have no further needs for Database services.  But I have an interest in Rom-DB so it stays.
+User information is the only database requirement I have right now.  `Rom-DB` handled the immediate task well even, and the additional effort needed to add Database Create and Migration rakes was not too bad.  `Sequel` offered a `dump current schema` command which made defining migration easier.  I was using a PGSQL Dump backup of the Users table and Database from the existing demo application: `SknServices`.  As a result, `Rom-DB` is overkill for this task, `Sequel` would be the correct level technology, if I have no further needs for Database services.  But I have an interest in Rom-DB so it stays.
 
 `SknService` also offers a ContentAPI which I am using on the `Resources` page.
 
@@ -94,8 +100,11 @@ Aside from DB migrations and increasing RSPec test coverage, I'm done with this 
     │   ├── puma.rb             - Puma local webserver
     │   ├── settings.yml        - Default Application Settings
     │   ├── version.rb          - Application Version Object
+    │   ├── environment.rb      - Loads Gems and Initializers Only
     │   ├── boot_web.rb         - Load Main and Web Application components
     │   └── boot.rb             - Load Main Application Only
+    ├── db
+    │   └── migrate/            - Database migrate scripts
     ├── i18n/                   - Message Translation files
     ├── main                    - Business UseCases and Integrations
     │   ├── authentication/     - User Management
@@ -118,6 +127,7 @@ Aside from DB migrations and increasing RSPec test coverage, I'm done with this 
     ├── public
     │   ├── images/             - View Images
     │   └── fonts/              - View Fonts
+    ├── rakelib/                - Rake Tasks, Database Setup and Migrations
     ├── spec/                   - RSpec Tests
     └── web                     - Primary Web Integration
         ├── security /          - Warden's helper interface modules
@@ -152,6 +162,30 @@ SknWebApp needs a database of users, which should be a shared copy of the table 
 
 ### Problems Sovled
 ActiveRecord Serialization for Arrays with YAML format was handled nicely by Dry-Types, since I can't easily change the data model.
+
+#### Use Sequel to dump current database in migration format
+    $ sequel -d postgres://localhost/SknWebApp_development > 001_start.rb
+
+#### Database Model
+```sql
+    CREATE TABLE "users"
+
+    CREATE TABLE "user_group_roles" 
+        CREATE TABLE "user_group_roles_user_roles" 
+    CREATE TABLE "user_roles" 
+
+    CREATE TABLE "profile_types" 
+    CREATE TABLE "content_profiles" 
+        CREATE TABLE "content_profiles_entries" 
+    CREATE TABLE "content_profile_entries" 
+    
+    CREATE TABLE "content_types" 
+        CREATE TABLE "content_type_opts" 
+
+    CREATE TABLE "topic_types" 
+        CREATE TABLE "topic_type_opts" 
+```
+
 ```ruby
 ##
 # added to Types:
@@ -286,13 +320,13 @@ In racksh console: `$ $rack.get "/", {}, { 'REMOTE_ADDR' => '127.0.0.1' }`
 ```Ruby
 # File: ./routes/prefix.rb
 
-class SknWebApp
+class SknWeb
     route('prefix') do
       ...
     end
 end
 ```
-It opens and extends the existing app name class.  `SknWebApp` is also the name of this apps main.  Helper files have the same behavior.
+It opens and extends the existing app name class.  `SknWeb` is also the name of this apps Web main.  Helper files have the same behavior.
 
 The assets plugin initially failed (HTTP-404) to send bootstrap.css at Roda V3.3.0.  Switched to 2.29.0 and it worked, tried 3.3.0 again and everything seems to work now!  Making this note in case the trouble shows again.
 Asset Plugin Failure: Sending bottstrap.css with a 'Content-Type' eq 'text/html' 'Content-Length' eq '3045'; verus 'text/css' and 146K.

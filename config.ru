@@ -5,7 +5,7 @@
 require 'puma'
 require_relative "config/boot_web"
 
-app = case ENV['RACK_ENV']
+app = case SknApp.env
         when 'development', 'test'
           SknWeb.app
         else

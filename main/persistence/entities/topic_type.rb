@@ -7,6 +7,8 @@ module Entities
 
   class TopicType < ROM::Struct
 
+    attribute :opts, Types::Strict::Array.of(::Entities::TopicTypeOpt).optional
+
   end
 
 end

@@ -1,9 +1,20 @@
 # File: ./main/persistence/persistence.rb
 #
 
+[
+"entities/user", "entities/profile_type",
+"entities/content_profile_entry", "entities/content_profile",
+"entities/user_role", "entities/user_group_role",
+"entities/content_type_opt", "entities/content_type",
+"entities/topic_type_opt", "entities/topic_type"].each do |rom_resource|
+  begin
+    require_relative rom_resource
+  rescue LoadError => e
+    puts "[ROM Setup] Ignoring Exception for: #{e.class} #{e.message}"
+  end
+end
 
-['entities', 'relations',
- 'commands', 'repositories'].each do |db_mod|
+['relations', 'commands', 'repositories'].each do |db_mod|
   Dir["./main/persistence/#{db_mod}/*.rb"].each do |rom_resource|
     begin
       require rom_resource

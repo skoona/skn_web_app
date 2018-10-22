@@ -19,6 +19,11 @@ namespace :db do
   task :seed, :dbenv do |t,args|
     dbname = args.with_defaults(dbenv: ENV['RACK_ENV'])[:dbenv]
 
+    # ##
+    # Alternate Approach to Seeding
+    # connection = container.gateways[:default].connection
+    # connection.execute "INSERT INTO categories (name) VALUES ('dry-rb')"
+
     SknApp.logger.info "== Seed #{dbname.upcase} DB =="
       system!("psql SknWebApp_#{dbname} < db/skn-seed.sql ")
     SknApp.logger.info "== Done Seeding #{dbname.upcase} database =="

@@ -16,11 +16,13 @@ module Repositories
     end
 
     def all
-      root.to_a
+      aggregate(:content_profile_entries, :profile_types).to_a
     end
 
     def query(conditions)
-      root.where(conditions).to_a
+      aggregate(:content_profile_entries, :profile_types)
+          .where(conditions)
+          .to_a
     end
 
     def by_pak(pak)
@@ -28,7 +30,9 @@ module Repositories
     end
 
     def [](id)
-      root.by_pk(id).one
+      aggregate(:content_profile_entries, :profile_types)
+          .by_pk(id)
+          .one!
     end
 
     def by_id(id)
@@ -36,11 +40,21 @@ module Repositories
     end
 
     def find_by(col_val_hash)
-      root.where(col_val_hash).one
+      aggregate(:content_profile_entries, :profile_types)
+          .where(col_val_hash)
+          .one
     end
 
-    def profile(id)
-      root.where(id: id).combine([:content_profile_entries, :profile_types]).one
+    def with_entries(id)
+      id.to_s.to_i.eql?(0) ?
+          root.combine([:content_profile_entries, :profile_types]).to_a :
+          root.where(id: id).combine([:content_profile_entries, :profile_types]).one
+    end
+
+    def with_user(id)
+        id.to_s.to_i.eql?(0) ?
+            root.combine([:user]).to_a :
+            root.where(id: id).combine([:user]).one
     end
 
     def new_unique_profile(bundle)

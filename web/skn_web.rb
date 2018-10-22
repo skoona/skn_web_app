@@ -10,7 +10,7 @@ class SknWeb < Roda
   opts[:root] = SknApp.root
   opts[:env]  = SknApp.env
 
-  # use Rack::CommonLogger
+  use Rack::CommonLogger
   use Rack::Reloader
 
   use Rack::Cookies

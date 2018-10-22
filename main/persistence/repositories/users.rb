@@ -39,6 +39,12 @@ module Repositories
       root.where(col_val_hash).one
     end
 
+    def with_profile(id)
+      id.to_s.to_i.eql?(0) ?
+          root.combine([:content_profile]).to_a :
+          root.where(id: id).combine([:content_profile]).one
+
+    end
   end
 
 end
