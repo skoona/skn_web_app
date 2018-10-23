@@ -15,13 +15,7 @@ gem "erubis"
 gem 'forme'
 gem 'roda-tags'
 gem 'sass'
-# gem 'bootstrap-sass'
-# gem 'semantic-ui-sass'
-# gem 'sprockets-sass'
-# gem 'roda-sprocket_assets'
 gem 'tilt-pipeline'
-# gem 'tilt-indirect'
-#
 
 # Javascript Runtime Support
 gem 'execjs'
@@ -30,16 +24,16 @@ gem 'therubyrhino', platform: :jruby
 gem 'uglifier'
 
 # Core Components
+gem 'skn_utils'
 gem 'dry-types'
 gem 'dry-monads'
 gem 'dry-struct'
 gem 'dry-container'
+gem 'dry-configurable'
 gem 'dry-validation'
-gem 'dry-auto_inject'
 
 
 # General Utilities
-gem 'skn_utils'
 gem 'concurrent-ruby', require: 'concurrent'
 gem 'time_math2', require: 'time_math'
 gem 'mime-types'
@@ -60,13 +54,15 @@ gem "bcrypt"
 gem 'warden'
 
 group :development do
-  gem 'pry'
   gem "racksh"
   gem "rubrowser", require: false
 end
 
-group :test do
+group :development, :test do
   gem 'pry'
+end
+
+group :test do
   gem 'rspec'
   gem 'faker'
   gem 'rack-test'

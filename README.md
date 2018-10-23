@@ -27,20 +27,60 @@ For now I will keep notes and comments here, until I get to a workable baseline.
 * The package is composed of two main application elements; `SknApp`, the console baseline and business logic; and `SknWeb` the web interface code.  The bridge between the two is handled by Dry-Container and a custom class `ServiceRegistry`.
 * `SknBase` was the first implementation of this `SknServices Client`.  `SknWebApp` is a refactoring of `SknBase`, using the things I learned from writing tools to address this new frontier; i.e. Ruby Applications with a Web Interface.
 
+
+## In Summary
+It appears that I've written my own version of NestedStruct(Dry-Struct), Configurable(Dry-Configurable), Configuration(SknSettings), Container(Dry-Container lite), Success, and Failure(Dry-Monads lite) in SknUtils.  Writing my own version of a Dry-Types, to bring type safety to the app, is impractical.  So Dry-Types and Rom-rb will be permanent additions to my development toolkit. 
+
+#### Common Tools for Ruby Application Development of all kinds
+* Value Container with/without Validation
+    * NestedResult, DottedHash, Dry-Struct/Types/Validation
+    * Used to create Command Classes and hold intermediate values bundles
+* Dependency Management Container
+    * SknRegistry, SknSettings, Dry-Container
+    * Can also serve as a humanized list of service modules
+* Application Settings
+    * SknSetting, SknUtils::Configuration, SknUtils::Configurable, Dry-Configurable
+    * `./config/settings.yml` externalized settings AND MyApp.root like capabilities. 
+* Standard Success/Failure classes
+    * Skn's contain :success, :message, :value, and :payload
+    * SknSuccess, SknFailure, Dry-Monads Success/Failure(nil side-effects)
+* Time Calcs: TimeMath2
+* Design Methodology
+    * Domain Driven Design
+    * Test Driven Design
+* Best Practices: SOLID
+    * MyClass.call() structure
+    * Where:
+    ```ruby
+      class SomeService
+        def self.call(structured_input_command_or_vetted_hash, dependencies={})
+          new(dependencies).call(structured_input_command_or_vetted_hash)      
+        end
+        def initialize(options={})
+          @_service_helper = options.fetch(:some_service, DI.resolve('some_service'))
+        end
+        def call(input)
+          ... # do work by calling private methods
+        end
+        ...
+      end
+    ``` 
+
+
 #### Branch: JRuby-Master, JRuby-9.1.15.0 with Warble configuration to produce Tomcat Warfile
 #### Branch: master, Ruby-2.5.1
 
 Before engaging the advanced `Dry-RB` gems and other `Gems of Interest`.  I thought to code the basic app with minimal assistance from add-ins.  The overall structure of Roda is very flexible, so other than the normal scss/js struggle there were no surprises in the web-component portion; and more importantly, no imposition on business logic structure.
 
-User information is the only database requirement I have right now.  `Rom-DB` handled the immediate task well even, and the additional effort needed to add Database Create and Migration rakes was not too bad.  `Sequel` offered a `dump current schema` command which made defining migration easier.  I was using a PGSQL Dump backup of the Users table and Database from the existing demo application: `SknServices`.  As a result, `Rom-DB` is overkill for this task, `Sequel` would be the correct level technology, if I have no further needs for Database services.  But I have an interest in Rom-DB so it stays.
+User information is the only database requirement I have right now.  `Rom-DB` handled the immediate task well enough, and the additional effort needed to add database migration with associated rakes tasks was not too bad.  `Sequel` offered a `dump current schema` command which made defining migration easier.  I was using a PGSQL Dump backup of the Users table and Database from the existing demo application: `SknServices`.  As a result, `Rom-DB` is overkill for this task, `Sequel` would be the correct level technology, if I have no further needs for Database services.  But I have an interest large database models, for which a sample is included, that would require Rom-DB so it stays.
 
 `SknService` also offers a ContentAPI which I am using on the `Resources` page.
 
-Instead of using an advanced container and DI gem, I've started out using my [SknUtils](https://skoona.github.io/skn_utils/) gem; since I was already using it for application settings.  This gem is a thread-safe wrapper over Ruby's Hash, with dot-notation, presence(?) testing, and nested deep-merge capabilities.  Since a hash can use any object/value as it's Key or Value variables, it works well as a global container for environment based application settings, caching, central/critical application-class instances.
+Instead of using an advanced container and DI gem, I've started out using my [SknUtils](https://skoona.github.io/skn_utils/) gem; since I was already using it for application settings.  This gem is a thread-safe wrapper over Ruby's Hash, with dot-notation, presence(?) testing, and nested deep-merge capabilities.  Since a hash can use any object/value as it's Key or Value variables, it works well as a global container for environment based application settings, caching, central/critical application-class instances.  Whoever, I did write a `SknRegistry` to more directly handle `DI` requirements and included it in the `SknUtils` gem.
 
-I have adopted the Command and CommandHandler pattern to contain the HTPP Request service used to call the ContentAPI of SknServices.  Commands encapsulate the request params, in a validateable command class, as input to the command handler which will invoke the related service.
+I have adopted the Command and CommandHandler pattern to service all requests for data/info from web pages. Commands encapsulate the request params, in a validate-able command class, as input to the command handler which will invoke the related service.
 
-To link the the Roda Routes to the appropriate services, I've created a `ServicesRegistry` and HTTP/SendFile wrappers to make the link between the Application Classes and the Web Interface.  The basically moves the lines of code that would have been in the Routes into the ServicesRegistry; which I can mock out as needed for testing later.
+To link the the Roda Routes to the appropriate services, I've created a `ServicesRegistry` and HTTP/SendFile wrappers/helpers to make the link between the Application Classes and the Web Interface.  The basically moves the lines of code that would have been in the Routes into the ServicesRegistry; which I can mock out as needed for testing later.
 
 Aside from DB migrations and increasing RSPec test coverage, I'm done with this example and very impressed with its structure.
 
@@ -49,15 +89,19 @@ Aside from DB migrations and increasing RSPec test coverage, I'm done with this 
 * [SknServices](https://skoona.github.io/SknServices/)
 * [SknUtils](https://skoona.github.io/skn_utils/)
 * [Roda-i18n](https://github.com/kematzy/roda-i18n)
-* [Roda-Container](https://github.com/AMHOL/roda-container)
-* [Roda-Action](https://github.com/AMHOL/roda-action)
-* [Roda-Flow](https://github.com/AMHOL/roda-flow)
+* [Dry-Types](https://dry-rb.org/gems/dry-types/)
+* [Dry-Container](https://dry-rb.org/gems/dry-container/)
+* [Dry-Configurable](https://dry-rb.org/gems/dry-configurable/)
+* [Dry-Struct](https://dry-rb.org/gems/dry-struct/)
+* [Dry-Validation](https://dry-rb.org/gems/dry-validation/)
+* [TimeMath2](https://github.com/zverok/time_math2)
 * [Roda-Tags](https://github.com/kematzy/roda-tags)
 * [FriendlyNumbers](https://github.com/adam12/friendly_numbers)
 * [Roda-Parse-Request](https://github.com/3scale/roda-parse-request)
-* [Roda-MessageBus](https://github.com/jeremyevans/roda-message_bus)
+* [Roda-Action](https://github.com/AMHOL/roda-action)
+* [Roda-Container](https://github.com/AMHOL/roda-container)
+* [Roda-Flow](https://github.com/AMHOL/roda-flow)
 * [Ruby-Event-Store](https://github.com/RailsEventStore/rails_event_store)
-* [Wisper](https://github.com/krisleech/wisper)
 * [Piperator](https://github.com/lautis/piperator)
 
 
@@ -65,21 +109,21 @@ Aside from DB migrations and increasing RSPec test coverage, I'm done with this 
 1. What directory structure is required, and what options are there to override those requirements?
     * Seems Roda and Dry-RB both impose a filesystem structure.
     * Would a Ruby Gem filesystem model be suitable?
-    * `Partial` answer is: `RubyGem` and `Roda.Plugin` file layouts.
-2. How does activities per-request factor into things like singletons, or Object lifecycles?
+    * `Answer` is: See File Tree section.
+2. How does activities per-request factor into things like singletons, or Object lifecycle?
     * No Impact
 3. Ruby $LoadPath vs Bundler vs Application Source AutoLoad seem to be at odds, in some ways.
     * Autoload is of little interest at this scale. Each Dir has a same-named rbfile that requires all its components
-    * Bundler.setup and Bundler.require handle loading all gem for now; may change as I dig into RSpec testing.
+    * Bundler.setup and Bundler.require handle loading all gem for now.
 4. While the notion of (Roda) Sub-Apps is valid for large applications, it also serves to segment application source into domains.
     * A sub-app filesystem structure is relevant for the web interface, it becomes clumsy for Domains.
-    * For now, I will use one single app with multiple routes to handle the web interface segmentation.
-5. Several plugin automatically require and instantiate other plugins on their own.  Each plugin has to be reviewed to understand its side effects or dependancies.
+    * For now, I will use one single web app with multiple routes to handle the web interface segmentation.
+5. Several plugin automatically require and instantiate other plugins on their own.  Each plugin has to be reviewed to understand its side effects or dependencies.
     * This is a pain to be experienced one time.  Middleware and Plugin order DOES MATTER.
 6. Require vs AutoLoad? `Autoload` would prevent loading the whole app when it's not needed during test or CLI operations.  However, `Require` does allow me to control what's loaded and any dependencies with greater clarity.
     * Don't really care yet!  Using the Ruby Require and Require_Relative methods.
 7. Not sure about the lifecycle of critical objects in Roda yet.  How to create something that will survive the request/response cycle; like the database component.
-    * Again, DI Container maybe helpful.  I'm current using SknUtils::Configurable class as the DI container.  ROM-DB is dragging some type of container, might switch to it after some review.
+    * Again, DI Container maybe helpful.  I'm current using `SknUtils::Configurable` class as the container, and `SknRegistry` as the DI component.  `ROM-RB` is dragging some type of container, likely based on `Dry-Container` might switch to it after some review; `switched`
 
 
 ### File Tree: Done

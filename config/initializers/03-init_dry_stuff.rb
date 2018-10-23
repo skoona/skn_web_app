@@ -1,11 +1,11 @@
 # ##
 # 03-init_auto_inject
 #
-# Skn::Import['key']
-# def initialize(options);
-#   # super(options)
-# end
+
+# ##
+# Ref: https://dry-rb.org/gems/dry-monads/1.0/maybe/
 #
+M = Dry::Monads
 
 # ##
 # Ref: https://dry-rb.org/gems/dry-validation/
@@ -23,16 +23,9 @@ module Types
   SerializedArrayWrite = Types.Constructor(Types::Strict::String) { |ary_of_str| ary_of_str.nil? ? Psych.dump([])  : Psych.dump(ary_of_str.compact) }
   StringWithoutBlanks  = Types.Constructor(Types::Strict::String) { |raw_str| raw_str.nil? ? "" : raw_str.gsub!(/\s+/) }
 end
-# ##
-# Ref: https://dry-rb.org/gems/dry-monads/1.0/maybe/
-#
-M = Dry::Monads
-
 
 
 module Skn
-
-  Import = Dry::AutoInject(SknApp.registry).hash
 
   # ##
   # Ref: https://dry-rb.org/gems/dry-struct/

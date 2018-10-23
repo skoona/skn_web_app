@@ -14,19 +14,18 @@ GEM
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
       xpath (~> 3.1)
-    capybara-screenshot (1.0.21)
+    capybara-screenshot (1.0.22)
       capybara (>= 1.0, < 4)
       launchy
     cliver (0.3.2)
     coderay (1.1.2)
+    colorize (0.8.1)
     concurrent-ruby (1.0.5)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     deep_merge (1.2.1)
     diff-lcs (1.3)
     docile (1.3.1)
-    dry-auto_inject (0.4.6)
-      dry-container (>= 0.3.4)
     dry-configurable (0.7.0)
       concurrent-ruby (~> 1.0)
     dry-container (0.6.0)
@@ -215,7 +214,8 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    skn_utils (5.1.3)
+    skn_utils (5.2.0)
+      colorize (~> 0)
       concurrent-ruby (~> 1)
       deep_merge (~> 1)
       thor (~> 0)
@@ -251,7 +251,7 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   concurrent-ruby
-  dry-auto_inject
+  dry-configurable
   dry-container
   dry-monads
   dry-struct
