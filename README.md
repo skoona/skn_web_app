@@ -130,7 +130,7 @@ Aside from DB migrations and increasing RSPec test coverage, I'm done with this 
     ├── rakelib/                - Rake Tasks, Database Setup and Migrations
     ├── spec/                   - RSpec Tests
     └── web                     - Primary Web Integration
-        ├── security /          - Warden's helper interface modules
+        ├── security/           - Wardens helper interface modules
         ├── helpers/            - View HTML Helpers
         ├── routes
         │   ├── profiles.rb     - Profile Routes
