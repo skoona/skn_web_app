@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>494c8c0c-ec3f-42e5-b594-de0a366b8a63.SCHEMA:SknWebApp_development.public</OriginalElement>
+  <nodes>
+    <node x="249.0" y="634.0">494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.topic_types</node>
+    <node x="249.0" y="847.0">494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.topic_type_opts</node>
+    <node x="580.0" y="847.0">494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.user_group_roles_user_roles</node>
+    <node x="267.0" y="202.0">494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.content_profiles</node>
+    <node x="130.25" y="492.0">494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.content_profiles_entries</node>
+    <node x="570.0" y="0.0">494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.users</node>
+    <node x="0.0" y="847.0">494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.content_type_opts</node>
+    <node x="299.0" y="0.0">494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.profile_types</node>
+    <node x="5.0" y="634.0">494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.content_types</node>
+    <node x="19.0" y="20.0">494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.schema_migrations</node>
+    <node x="488.0" y="634.0">494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.user_group_roles</node>
+    <node x="702.0" y="645.0">494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.user_roles</node>
+    <node x="0.0" y="191.0">494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.content_profile_entries</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.content_profiles_entries" target="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.content_profiles">
+      <point x="64.75" y="-48.5" />
+      <point x="324.5" y="467.0" />
+      <point x="396.0" y="467.0" />
+      <point x="0.0" y="114.5" />
+    </edge>
+    <edge source="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.topic_type_opts" target="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.topic_types">
+      <point x="0.0" y="-92.5" />
+      <point x="0.0" y="81.5" />
+    </edge>
+    <edge source="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.content_profiles_entries" target="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.content_profile_entries">
+      <point x="-64.75" y="-48.5" />
+      <point x="195.0" y="467.0" />
+      <point x="123.5" y="467.0" />
+      <point x="0.0" y="125.5" />
+    </edge>
+    <edge source="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.user_group_roles_user_roles" target="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.user_roles">
+      <point x="56.0" y="-48.5" />
+      <point x="748.0" y="822.0" />
+      <point x="799.0" y="822.0" />
+      <point x="0.0" y="70.5" />
+    </edge>
+    <edge source="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.content_profiles" target="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.profile_types">
+      <point x="0.0" y="-114.5" />
+      <point x="0.0" y="70.5" />
+    </edge>
+    <edge source="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.user_group_roles_user_roles" target="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.user_group_roles">
+      <point x="-56.0" y="-48.5" />
+      <point x="636.0" y="822.0" />
+      <point x="585.0" y="822.0" />
+      <point x="0.0" y="81.5" />
+    </edge>
+    <edge source="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.content_type_opts" target="494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.content_types">
+      <point x="0.0" y="-92.5" />
+      <point x="0.0" y="81.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="546.5" y="516.0" />
+  <SelectedNodes>
+    <node>494c8c0c-ec3f-42e5-b594-de0a366b8a63.TABLE:SknWebApp_development.public.schema_migrations</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+  </Categories>
+</Diagram>
+

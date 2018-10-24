@@ -208,24 +208,8 @@ SknWebApp needs a database of users, which should be a shared copy of the table 
     $ sequel -d postgres://localhost/SknWebApp_development > 001_start.rb
 
 #### Database Model
-```sql
-    CREATE TABLE "users"
-
-    CREATE TABLE "user_group_roles" 
-        CREATE TABLE "user_group_roles_user_roles" 
-    CREATE TABLE "user_roles" 
-
-    CREATE TABLE "profile_types" 
-    CREATE TABLE "content_profiles" 
-        CREATE TABLE "content_profiles_entries" 
-    CREATE TABLE "content_profile_entries" 
-    
-    CREATE TABLE "content_types" 
-        CREATE TABLE "content_type_opts" 
-
-    CREATE TABLE "topic_types" 
-        CREATE TABLE "topic_type_opts" 
-```
+Authorization (Profiles) and Authentication (Roles)
+![Full Data Model](https://github.com/skoona/skn_web_app/raw/master/spec/factories/notes/data_model.png)
 
 
 ### Problems Sovled
