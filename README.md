@@ -204,9 +204,6 @@ SknWebApp needs a database of users, which should be a shared copy of the table 
 </dl>
 
 
-### Problems Sovled
-ActiveRecord Serialization for Arrays with YAML format was handled nicely by Dry-Types, since I can't easily change the data model.
-
 #### Use Sequel to dump current database in migration format
     $ sequel -d postgres://localhost/SknWebApp_development > 001_start.rb
 
@@ -230,6 +227,10 @@ ActiveRecord Serialization for Arrays with YAML format was handled nicely by Dry
         CREATE TABLE "topic_type_opts" 
 ```
 
+
+### Problems Sovled
+ActiveRecord Serialization for Arrays with YAML format was handled nicely by Dry-Types, since I can't easily change the data model.
+
 ```ruby
 ##
 # added to Types:
@@ -247,24 +248,6 @@ end
 ##
 
   class User < ROM::Struct
-    attribute :id, Types::Strict::Int
-    attribute :username, Types::Strict::String
-    attribute :name, Types::Strict::String
-    attribute :email, ::Types::Email
-    attribute :password_digest, Types::Strict::String
-    attribute :remember_token, Types::Strict::String.optional
-    attribute :password_reset_token, Types::Strict::String.optional
-    attribute :password_reset_date, Types::Strict::Time.optional
-    attribute :assigned_groups, Types::Strict::Array.meta(desc: :yaml_array)
-    attribute :roles, Types::Strict::Array.meta(desc: :yaml_array)
-    attribute :active, Types::Strict::Bool
-    attribute :file_access_token, Types::Strict::String.optional
-    attribute :created_at, Types::Strict::Time
-    attribute :updated_at, Types::Strict::Time
-    attribute :person_authenticated_key, Types::Strict::String
-    attribute :assigned_roles, Types::Strict::Array.meta(desc: :yaml_array)
-    attribute :remember_token_digest , Types::Strict::String.optional
-    attribute :user_options, Types::Strict::Array.meta(desc: :yaml_array)
 
     def pak
       person_authenticated_key
@@ -306,13 +289,15 @@ end
 
     # Define some composable, reusable query methods to return filtered
     # results from our database table. We'll use them in a moment.
-    def by_id(id)
+    def by_pk(id)
       where(id: id)
+    end
+    def by_pak(pak)
+      where(person_authenticated_key: pak)
     end
   end
 
 ```
-
 
 ## Naming
 * Relation Table Names should be plural form
@@ -327,27 +312,27 @@ end
     struct_namespace Entity
 
     def all
-      users.map_to(Entity::User).to_a
+      root.to_a
     end
 
     def query(conditions)
-      users.where(conditions).map_to(Entity::User).to_a
+      root.where(conditions).to_a
     end
 
     def by_pak(pak)
-      find_by(person_authenticated_key: pak)
+      root.by_pak(pak).one!
     end
 
     def [](id)
-      users.by_id(id).map_to(Entity::User).one
+      root.by_id(id).one
     end
 
     def by_id(id)
-      users.by_id(id).one
+      root.by_pk(id).one
     end
 
     def find_by(col_val_hash)
-      users.where(col_val_hash).one
+      root.where(col_val_hash).one
     end
   end
 ```
