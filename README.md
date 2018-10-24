@@ -209,7 +209,7 @@ SknWebApp needs a database of users, which should be a shared copy of the table 
 
 #### Database Model
 Authorization (Profiles) and Authentication (Roles)
-![Full Data Model](https://github.com/skoona/skn_web_app/raw/master/spec/factories/notes/data_model.png)
+![Full Data Model](https://github.com/skoona/skn_web_app/blob/master/spec/factories/notes/data_model.png)
 
 
 ### Problems Sovled
