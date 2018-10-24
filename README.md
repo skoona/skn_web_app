@@ -207,8 +207,7 @@ SknWebApp needs a database of users, which should be a shared copy of the table 
 #### Use Sequel to dump current database in migration format
     $ sequel -d postgres://localhost/SknWebApp_development > 001_start.rb
 
-#### Database Model
-Authorization (Profiles) and Authentication (Roles)
+#### Database Model:  Authorization (Profiles) and Authentication (Roles)
 ![Full Data Model](https://github.com/skoona/skn_web_app/blob/master/spec/factories/notes/data_model.png)
 
 
