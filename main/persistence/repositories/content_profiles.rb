@@ -15,46 +15,32 @@ module Repositories
       super root.changeset(:update, attrs).map(:add_timestamps)
     end
 
-    def all
-      aggregate(:content_profile_entries, :profile_types).to_a
+    def all(entry=false)
+      entry ?
+          aggregate(:content_profile_entrie, :profile_type).to_a :
+            root.to_a
     end
 
-    def query(conditions)
-      aggregate(:content_profile_entries, :profile_types)
-          .where(conditions)
-          .to_a
-    end
-
-    def by_pak(pak)
-      find_by(person_authentication_key: pak)
-    end
-
-    def [](id)
-      aggregate(:content_profile_entries, :profile_types)
-          .by_pk(id)
-          .one!
+    def by_pak(pak, entry=false)
+      entry ?
+          root.where(person_authentication_key: pak)
+              .combine([:content_profile_entrie, :profile_type]).one :
+          root.where(person_authentication_key: pak).one
     end
 
     def by_id(id)
       root.by_pk(id).one
     end
 
-    def find_by(col_val_hash)
-      aggregate(:content_profile_entries, :profile_types)
-          .where(col_val_hash)
-          .one
-    end
-
-    def with_entries(id)
-      id.to_s.to_i.eql?(0) ?
-          root.combine([:content_profile_entries, :profile_types]).to_a :
-          root.where(id: id).combine([:content_profile_entries, :profile_types]).one
+    def find_by(col_val_hash, entry=false)
+      entry ?
+          root.where(col_val_hash)
+              .combine([:content_profile_entrie, :profile_type]).to_a :
+          root.where(col_val_hash).to_a
     end
 
     def with_user(id)
-        id.to_s.to_i.eql?(0) ?
-            root.combine([:user]).to_a :
-            root.where(id: id).combine([:user]).one
+      root.where(id: id).combine([:users]).one
     end
 
     def new_unique_profile(bundle)

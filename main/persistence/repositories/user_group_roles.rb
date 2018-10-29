@@ -15,38 +15,28 @@ module Repositories
       super root.changeset(:update, attrs).map(:add_timestamps)
     end
 
-    def all
-      aggregate(:user_roles).to_a
+    def all(roles=false)
+      roles ? root.combine([:user_roles]).to_a : root.to_a
     end
 
-    def query(conditions)
-      aggregate(:user_roles)
-          .where(conditions)
-          .to_a
+    def names
+      root.pluck(:name)
     end
 
-    def [](id)
-      aggregate(:user_roles)
-          .by_pk(id)
-          .one!
+    def by_name(value, opts=false)
+      opts ? root.where(name: value).combine([:user_roles]).one : root.where(name: value).one
+    end
+
+    def find_by(col_val_hash, opts=false)
+      opts ? root.where(col_val_hash).combine([:user_roles]).to_a : root.where(col_val_hash).to_a
     end
 
     def by_id(id)
-      aggregate(:user_roles)
-          .by_pk(id)
-          .one
-    end
-
-    def find_by(col_val_hash)
-      aggregate(:user_roles)
-          .where(col_val_hash)
-          .one
+      root.by_pk(id).one!
     end
 
     def with_roles(id)
-      id.to_s.to_i.eql?(0) ?
-        root.combine([:user_roles]).to_a :
-          root.where(id: id).combine([:user_roles]).one
+      root.where(id: id).combine([:user_roles]).one
     end
   end
 end

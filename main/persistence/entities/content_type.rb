@@ -7,8 +7,6 @@ module Entities
 
   class ContentType < ROM::Struct
 
-    attribute :content_type_opts, Types::Strict::Array.of(::Entities::ContentTypeOpt).optional
-
   end
 
 end
