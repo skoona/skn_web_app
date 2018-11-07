@@ -24,7 +24,7 @@ module Repositories
     end
 
     def find_by(col_val_hash)
-      root.where(col_val_hash).to_a
+      root.where(col_val_hash).one
     end
 
     def by_pak(pak, wprof=false)
