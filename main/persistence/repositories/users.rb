@@ -19,32 +19,23 @@ module Repositories
       root.to_a
     end
 
-    def query(conditions)
-      root.where(conditions).to_a
-    end
-
-    def by_pak(pak)
-      find_by(person_authentication_key: pak)
-    end
-
-    def [](id)
-      root.by_pk(id).one
-    end
-
     def by_id(id)
       root.by_pk(id).one
     end
 
     def find_by(col_val_hash)
-      root.where(col_val_hash).one
+      root.where(col_val_hash).to_a
     end
 
-    def with_profile(id)
-      id.to_s.to_i.eql?(0) ?
-          root.combine([:content_profile]).to_a :
-          root.where(id: id).combine([:content_profile]).one
-
+    def by_pak(pak, wprof=false)
+      wprof ?
+          root.where(person_authentication_key: pak).combine([:content_profiles]).one :
+            root.where(person_authentication_key: pak).one
     end
+
+    def with_profiles(pak)
+      root.where(person_authentication_key: pak).with_profile.one
+    end
+
   end
-
 end

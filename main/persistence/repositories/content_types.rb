@@ -15,38 +15,29 @@ module Repositories
       super root.changeset(:update, attrs).map(:add_timestamps)
     end
 
-    def all
-      aggregate(:content_type_opts).to_a
-    end
-
-    def query(conditions)
-      aggregate(:content_type_opts)
-          .where(conditions)
-          .to_a
-    end
-
-    def [](id)
-      aggregate(:content_type_opts)
-          .by_pk(id)
-          .one!
+    def all(opts=false)
+      opts ? root.combine([:content_type_opts]).to_a : root.to_a
     end
 
     def by_id(id)
-      aggregate(:content_type_opts)
-          .by_pk(id)
-          .one!
-    end
-
-    def find_by(col_val_hash)
-      aggregate(:content_type_opts)
-          .where(col_val_hash)
-          .one
+      root.by_pk(id).one
     end
 
     def with_opts(id)
-      id.to_s.to_i.eql?(0) ?
-          root.combine([:content_type_opts]).to_a :
-            root.where(id: id).combine([:content_type_opts]).one
+      root.where(id: id).combine([:content_type_opts]).one
     end
+
+    def names
+      root.pluck(:name)
+    end
+
+    def by_name(value, opts=false)
+      opts ? root.where(name: value).combine([:content_type_opts]).one : root.where(name: value).one
+    end
+
+    def find_by(col_val_hash, opts=false)
+      opts ? root.where(col_val_hash).combine([:content_type_opts]).to_a : root.where(col_val_hash).to_a
+    end
+
   end
 end

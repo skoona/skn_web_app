@@ -15,33 +15,30 @@ module Repositories
       super root.changeset(:update, attrs).map(:add_timestamps)
     end
 
+
     def all
       root.to_a
     end
 
-    def query(conditions)
-      root.where(conditions).to_a
+    def names
+      root.pluck(:name)
     end
 
-    def [](id)
-      by_pk(id).one!
+    def by_name(value)
+      root.where(name: value).one
     end
 
     def by_id(id)
-      by_pk(id).one
+      root.by_pk(id).one
     end
 
     def find_by(col_val_hash)
-      where(col_val_hash).one
+      root.where(col_val_hash).to_a
     end
 
     def with_groups(id)
-      id.to_s.to_i.eql?(0) ?
-          root.combine([:user_group_roles]).to_a :
-          root.where(id: id).combine([:user_group_roles]).one
+      root.where(id: id).combine([:user_group_roles]).one
     end
-    # def group_roles(id)
-    #   user_roles.where(id: id).combine([:user_group_roles]).one
-    # end
+
   end
 end

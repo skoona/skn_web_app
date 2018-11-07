@@ -30,11 +30,5 @@ module Relations
 
     # See Namespace in Repository
     auto_struct true
-
-    # Define some composable, reusable query methods to return filtered
-    # results from our database table. We'll use them in a moment.
-    def by_pk(id)
-      where(id: id)
-    end
   end
 end

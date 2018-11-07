@@ -6,7 +6,6 @@
 module Entities
 
   class UserGroupRole < ROM::Struct
-    attribute :roles, Types::Strict::Array.of(::Entities::UserRole).optional
 
   end
 

@@ -11,7 +11,7 @@ module Relations
     schema(:content_profiles, infer: false) do
 
       attribute :id, ROM::SQL::Types::Serial
-      attribute :person_authentication_key, Types::Strict::String
+      attribute :person_authentication_key, Types::Strict::String.constrained(min_size: 32)
       attribute :profile_type_id, Types::ForeignKey(:profile_types)
       attribute :authentication_provider, Types::String
       attribute :username, Types::Strict::String
@@ -22,25 +22,13 @@ module Relations
 
       primary_key :id
       associations do
-        has_one :users, as: :user, foreign_key: :person_authentication_key, combine_key: :person_authentication_key#, override: true
-        belongs_to :profile_types
+        belongs_to :profile_type
         has_many   :content_profile_entries, through: :content_profiles_entries
       end
     end
 
     # See Namespace in Repository
     auto_struct true
-
-    view(:roles_link) do
-      schema { append(relations[:user_group_roles][:name]) }
-      relation { |name| where(name: name) }
-    end
-
-    # Define some composable, reusable query methods to return filtered
-    # results from our database table. We'll use them in a moment.
-    def by_pk(id)
-      where(id: id)
-    end
 
     def by_pak(pak)
       where(person_authentication_key: pak)
