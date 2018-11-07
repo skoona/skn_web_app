@@ -22,7 +22,6 @@ module Relations
 
       primary_key :id
       associations do
-
         belongs_to :profile_type
         has_many   :content_profile_entries, through: :content_profiles_entries
       end
@@ -30,11 +29,6 @@ module Relations
 
     # See Namespace in Repository
     auto_struct true
-
-    view(:for_users) do
-      schema { append(relations[:users][:person_authentication_key]) }
-      relation { |person_authentication_key| where(person_authentication_key: person_authentication_key) }
-    end
 
     def by_pak(pak)
       where(person_authentication_key: pak)

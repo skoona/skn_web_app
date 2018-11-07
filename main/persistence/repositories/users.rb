@@ -33,9 +33,8 @@ module Repositories
             root.where(person_authentication_key: pak).one
     end
 
-    def with_profile(id)
-      # root.where(id: id).combine([:content_profile]).one
-      root.join(:content_profiles, person_authentication_key: :person_authentication_key)
+    def with_profiles(pak)
+      root.where(person_authentication_key: pak).with_profile.one
     end
 
   end
