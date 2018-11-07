@@ -48,6 +48,8 @@ require 'factories/resource_data'
 
 RSpec::Expectations.configuration.warn_about_potential_false_positives = true
 
+Dir[ "./spec/support/**/*.rb" ].each { |f| require f }
+
 RSpec.configure do |config|
   Kernel.srand config.seed
 
