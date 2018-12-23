@@ -17,14 +17,14 @@ module Repositories
 
     def all(entry=false)
       entry ?
-          aggregate(:content_profile_entrie, :profile_type).to_a :
+          aggregate(:content_profile_entries, :profile_type).to_a :
             root.to_a
     end
 
     def by_pak(pak, entry=false)
       entry ?
           root.where(person_authentication_key: pak)
-              .combine([:content_profile_entrie, :profile_type]).one :
+              .combine([:content_profile_entries, :profile_type]).one :
           root.where(person_authentication_key: pak).one
     end
 
@@ -35,7 +35,7 @@ module Repositories
     def find_by(col_val_hash, entry=false)
       entry ?
           root.where(col_val_hash)
-              .combine([:content_profile_entrie, :profile_type]).to_a :
+              .combine([:content_profile_entries, :profile_type]).to_a :
           root.where(col_val_hash).to_a
     end
 

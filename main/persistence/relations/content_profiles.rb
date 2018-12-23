@@ -11,7 +11,7 @@ module Relations
     schema(:content_profiles, infer: false) do
 
       attribute :id, ROM::SQL::Types::Serial
-      attribute :person_authentication_key, Types::Strict::String.constrained(min_size: 32)
+      attribute :person_authentication_key, Types::Strict::String.constrained(min_size: 32).meta(foreign_key: true, relation: :users), read: Types::Strict::String
       attribute :profile_type_id, Types::ForeignKey(:profile_types)
       attribute :authentication_provider, Types::String
       attribute :username, Types::Strict::String
@@ -23,6 +23,7 @@ module Relations
       primary_key :id
       associations do
         belongs_to :profile_type
+        belongs_to :users
         has_many   :content_profile_entries, through: :content_profiles_entries
       end
     end
@@ -30,8 +31,13 @@ module Relations
     # See Namespace in Repository
     auto_struct true
 
-    def by_pak(pak)
-      where(person_authentication_key: pak)
+    def by_id(id)
+      by_pk(id)
     end
+
+    def for_users(_assoc, users)
+      where(person_authentication_key: users.map { |u| u[:person_authentication_key] })
+    end
+
   end
 end

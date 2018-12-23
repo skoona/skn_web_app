@@ -23,7 +23,6 @@ end
 ENV['RACK_ENV'] = 'test'
 
 require 'simplecov'
-require 'code_coverage'
 
 require './config/boot_web'  # main application with web
 

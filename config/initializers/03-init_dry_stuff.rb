@@ -25,19 +25,15 @@ module Types
 end
 
 
-module Skn
 
-  # ##
-  # Ref: https://dry-rb.org/gems/dry-struct/
-  #
-  # class SymbolizeStruct < Dry::Struct
-  #   transform_keys(&:to_sym)
-  # end
-  #
-  # class User < Skn::SymbolizeStruct
-  #   attribute :name, Types::Strict::String.optional
-  #   attribute :age, Types::Coercible::Integer
-  # end
-
-end
-
+# ##
+# Ref: https://dry-rb.org/gems/dry-struct/
+#
+# class SymbolizeStruct < Dry::Struct
+#   transform_keys(&:to_sym)
+# end
+#
+# class User < Skn::SymbolizeStruct
+#   attribute :name, Types::Strict::String.optional
+#   attribute :age, Types::Coercible::Integer
+# end

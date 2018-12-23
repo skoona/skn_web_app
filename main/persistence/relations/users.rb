@@ -31,15 +31,16 @@ module Relations
 
       primary_key :id
       associations do
-        has_one :content_profiles, foreign_key: :person_authentication_key, combine_key: :person_authentication_key
+        has_one :content_profiles, as: :content_profile, foreign_key: :person_authentication_key, combine_key: :person_authentication_key, override: true, view: :for_users
       end
     end
 
     # See Namespace in Repository
     auto_struct true
 
-    def with_profile
-      assoc(:content_profiles)
+    def by_id(id)
+      by_pk(id)
     end
+
   end
 end

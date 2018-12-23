@@ -19,8 +19,8 @@ gem 'tilt-pipeline'
 
 # Javascript Runtime Support
 gem 'execjs'
-gem "therubyracer", platform: [:mri, :ruby]
-gem 'therubyrhino', platform: :jruby
+gem "therubyracer"
+# gem 'therubyrhino', platform: :jruby
 gem 'uglifier'
 
 # Core Components

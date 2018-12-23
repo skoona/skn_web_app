@@ -3,8 +3,7 @@
 # - Initialize Minimal Application Environment
 #
 
-ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
-
+ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
 
 # Instantiate Resources
 begin

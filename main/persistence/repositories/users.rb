@@ -20,21 +20,23 @@ module Repositories
     end
 
     def by_id(id)
-      root.by_pk(id).one
+      root.by_id(id).one
+    end
+
+    def by_pak(pak)
+      root.where(person_authentication_key: pak).one
     end
 
     def find_by(col_val_hash)
       root.where(col_val_hash).one
     end
 
-    def by_pak(pak, wprof=false)
-      wprof ?
-          root.where(person_authentication_key: pak).combine([:content_profiles]).one :
-            root.where(person_authentication_key: pak).one
+    def with_profile(pak)
+      aggregate([content_profiles: :profile_type]).where(person_authentication_key: pak).one
     end
 
     def with_profiles(pak)
-      root.where(person_authentication_key: pak).with_profile.one
+      aggregate(content_profile: [:profile_type, :content_profile_entries]).where(person_authentication_key: pak).one
     end
 
   end
