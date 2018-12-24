@@ -11,7 +11,7 @@ module Relations
     schema(:content_profiles, infer: false) do
 
       attribute :id, ROM::SQL::Types::Serial
-      attribute :person_authentication_key, Types::Strict::String.constrained(min_size: 32).meta(foreign_key: true, relation: :users), read: Types::Strict::String
+      attribute :person_authentication_key, Types::Strict::String.meta(foreign_key: true, relation: :users).constrained(min_size: 32)
       attribute :profile_type_id, Types::ForeignKey(:profile_types)
       attribute :authentication_provider, Types::String
       attribute :username, Types::Strict::String
@@ -29,6 +29,7 @@ module Relations
     end
 
     # See Namespace in Repository
+    struct_namespace ::Entities
     auto_struct true
 
     def by_id(id)

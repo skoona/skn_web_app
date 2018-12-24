@@ -32,7 +32,7 @@ module Repositories
     end
 
     def with_profile(pak)
-      aggregate([content_profiles: :profile_type]).where(person_authentication_key: pak).one
+      users.combine([content_profile: :profile_type]).where(person_authentication_key: pak).one
     end
 
     def with_profiles(pak)

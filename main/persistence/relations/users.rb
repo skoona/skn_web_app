@@ -24,18 +24,19 @@ module Relations
       attribute :file_access_token, Types::Strict::String.optional
       attribute :created_at, Types::Time
       attribute :updated_at, Types::Time
-      attribute :person_authentication_key, ::Types::Strict::String.constrained(min_size: 32)
+      attribute :person_authentication_key, Types::Strict::String.constrained(min_size: 32)
       attribute :assigned_roles, ::Types::SerializedArrayWrite.meta(desc: 'assigned_roles'), read: ::Types::SerializedArrayRead.meta(desc: 'assigned_roles')
       attribute :remember_token_digest , Types::Strict::String.optional
       attribute :user_options, ::Types::SerializedArrayWrite.meta(desc: 'user_options'), read: ::Types::SerializedArrayRead.meta(desc: 'user_options')
 
       primary_key :id
       associations do
-        has_one :content_profiles, as: :content_profile, foreign_key: :person_authentication_key, combine_key: :person_authentication_key, override: true, view: :for_users
+        has_one :content_profiles, as: :content_profile, override: true, view: :for_users
       end
     end
 
     # See Namespace in Repository
+    struct_namespace ::Entities
     auto_struct true
 
     def by_id(id)

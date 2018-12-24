@@ -4,9 +4,10 @@
 
 module Entities
 
-  class User < ROM::Struct
+  class UserProfile < ROM::Struct
 
-    # attribute :content_profiles, Types::Array.of(:content_profiles)
+
+    attribute :content_profiles, Types::Strict::Array.of(Entities::ContentProfile)
 
     def pak
       person_authentication_key
