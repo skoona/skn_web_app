@@ -14,7 +14,7 @@ module Authentication
     end
 
     def self.find_and_authenticate(username, password)
-      user = user_repo.find_by(username: username)
+      user = user_repo.find_by({username: username})
       if user && self.valid_digest?(user.password_digest, password)
         userp = self.new(user)
         debug_log "#{self.name}##{__method__}(success) Returns => #{user_profile_name(userp)}"
@@ -47,7 +47,7 @@ module Authentication
     def self.fetch_remembered_user (token=nil)
       return nil if token.nil?
       upp = nil
-      user_obj = user_repo.find_by(remember_token: token)
+      user_obj = user_repo.find_by({remember_token: token})
       upp = self.new(user_obj) if user_obj and valid_digest?(user_obj.remember_token_digest, token)
       cache_provider_add_user(upp) if upp
       upp
@@ -56,7 +56,7 @@ module Authentication
     # ContentProfile will call this
     def self.page_user(uname)
       userp = nil
-      value = user_repo.find_by(username: uname)
+      value = user_repo.find_by({username: uname})
       userp = self.new(value) if value
       userp = nil unless userp
       debug_log("#{self.name.to_s}.#{__method__}(#{uname}) Returns => #{userp&.name}")

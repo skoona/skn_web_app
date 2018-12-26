@@ -4,15 +4,14 @@
 module Repositories
 
   class Users < ROM::Repository[:users]
-    struct_namespace Entities
     commands :create, update: :by_pk, delete: :by_pk
 
     def create(attrs)
-      super root.changeset(:create, attrs).map(:add_timestamps)
+      super root.changeset(:create, attrs).map(:add_timestamps).commit
     end
 
     def update(attrs)
-      super root.changeset(:update, attrs).map(:add_timestamps)
+      super root.changeset(:update, attrs).map(){|rec| rec.merge(updated_at: Time.now.getlocal) }.commit
     end
 
     def all
@@ -20,23 +19,23 @@ module Repositories
     end
 
     def by_id(id)
-      root.by_id(id).one
+      root.by_id(id).one!
     end
 
     def by_pak(pak)
-      root.where(person_authentication_key: pak).one
+      root.by_pak(pak).one
     end
 
-    def find_by(col_val_hash)
-      root.where(col_val_hash).one
+    def find_by(conditions)
+      root.find_by(conditions).one
     end
 
     def with_profile(pak)
-      users.combine([content_profile: :profile_type]).where(person_authentication_key: pak).one
+      aggregate(:content_profiles).find_by(person_authentication_key: pak).one
     end
 
     def with_profiles(pak)
-      aggregate(content_profile: [:profile_type, :content_profile_entries]).where(person_authentication_key: pak).one
+      aggregate(content_profiles: [:profile_type, :content_profile_entries]).find_by(person_authentication_key: pak).one
     end
 
   end

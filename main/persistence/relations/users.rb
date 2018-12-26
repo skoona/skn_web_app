@@ -8,6 +8,8 @@
 module Relations
 
   class Users < ROM::Relation[:sql]
+    struct_namespace ::Entities
+
     schema(:users, infer: false) do
 
       attribute :id, ROM::SQL::Types::Serial
@@ -31,16 +33,27 @@ module Relations
 
       primary_key :id
       associations do
-        has_one :content_profiles, as: :content_profile, override: true, view: :for_users
+        has_one :content_profiles, override: true, view: :for_users, combine_keys: {person_authentication_key: :person_authentication_key}
       end
     end
 
     # See Namespace in Repository
-    struct_namespace ::Entities
     auto_struct true
 
     def by_id(id)
       by_pk(id)
+    end
+
+    def by_pak(pak)
+      where(person_authentication_key: pak)
+    end
+
+    def find_by(conditions) # {}
+      where(conditions)
+    end
+
+    def for_profiles(_assoc, relation_dataset)
+      where(person_authentication_key: relation_dataset.map { |rec| rec[:person_authentication_key] })
     end
 
   end

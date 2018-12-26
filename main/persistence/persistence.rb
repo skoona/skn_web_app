@@ -1,13 +1,14 @@
 # File: ./main/persistence/persistence.rb
 #
 
+class DuplicateAuthenticationKeyError < StandardError; end
+
 [
     "entities/profile_type",
     "entities/content_profile_entry","entities/content_profile",
     "entities/user", "entities/user_role", "entities/user_group_role",
     "entities/content_type_opt", "entities/content_type",
-    "entities/topic_type_opt", "entities/topic_type",
-    "entities/user_profile"
+    "entities/topic_type_opt", "entities/topic_type"
 ].each do |rom_resource|
   begin
     require_relative rom_resource
