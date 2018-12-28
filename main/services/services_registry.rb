@@ -34,5 +34,13 @@ module Services
       SknApp.registry.resolve("content_provider").call( command )
     end
 
+    # Get Remote Files
+    def user_detail
+      command =
+          Commands::RetrieveUserDetail.new({pak: ctx.current_user.person_authentication_key})
+
+      SknApp.registry.resolve("user_detail_provider").call( command )
+    end
+
   end # end class
 end # end module

@@ -54,7 +54,8 @@ module Skn
                              Relations::ContentTypeOpts,
                              Relations::TopicTypes,
                              Relations::TopicTypeOpts
-                             # Commands::CreateContentProfile  -- registering commands raise an error
+    config.register_command  Commands::CreateUser,
+                             Commands::CreateContentProfile
   end
 
   SknApp.configure do |cfg|
@@ -65,6 +66,6 @@ end
 # ##
 # Shutdown and Disconnect Rom-RB
 at_exit do
-  SknApp.config.rom.disconnect
+  SknApp.rom.disconnect
   SknApp.logger.perf 'Closed ROM-RB... '
 end

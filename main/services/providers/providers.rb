@@ -6,3 +6,4 @@
 
 require_relative 'content'
 require_relative 'catalog'
+require_relative 'user_detail'

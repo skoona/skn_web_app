@@ -5,4 +5,5 @@
 
 require_relative 'file'
 require_relative 'get_request'
+require_relative 'user_detail'
 

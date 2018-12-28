@@ -5,4 +5,5 @@
 
 require_relative 'retrieve_resource_content'
 require_relative 'retrieve_available_resources'
+require_relative 'retrieve_user_detail'
 

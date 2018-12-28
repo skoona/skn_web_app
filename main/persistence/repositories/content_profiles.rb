@@ -7,11 +7,11 @@ module Repositories
     commands :create, update: :by_pk, delete: :by_pk
 
     def create(attrs)
-      super root.changeset(:create, attrs).map(:add_timestamps).commit
+      super root.command(:create_content_profile).call(attrs)
     end
 
-    def update(attrs)
-      super root.changeset(:update, attrs).map(){|rec| rec.merge(updated_at: Time.now.getlocal) }.commit
+    def update(id, attrs)
+      super root.by_id(id).changeset(:update, attrs).map(){|rec| rec.merge(updated_at: Time.now.getlocal) }.commit
     end
 
     def all(entry=false)
@@ -42,24 +42,6 @@ module Repositories
 
     def with_permissions_and_user(id)
       aggregate([:users, :content_profile_entries, :profile_type]).by_pk(id).one
-    end
-
-    def new_unique_profile(bundle)
-      pkg = bundle.dup
-      pak = pkg["person_authentication_key"] || pkg[:person_authentication_key]
-      if !!pak and !!find_by(person_authentication_key: pak)
-        msg = "[Repositories::ContentProfile] Create Failed!, Key: #{pak} is a duplicate key!"
-        SknApp.logger.error(msg)
-        raise(DuplicateAuthenticationKeyError, msg)
-
-      elsif pak.nil?
-        pkg[:person_authentication_key] = SecureRandom.uuid.gsub('-','')
-        root.changeset(:create, pkg).map(:add_timestamps).commit
-
-      else
-        root.changeset(:create, pkg).map(:add_timestamps).commit
-
-      end
     end
 
   end

@@ -4,15 +4,14 @@
 module Repositories
 
   class UserRoles < ROM::Repository[:user_roles]
-    struct_namespace Entities
     commands :create, update: :by_pk, delete: :by_pk
 
     def create(attrs)
-      super root.changeset(:create, attrs).map(:add_timestamps)
+      super root.changeset(:create, attrs).map(:add_timestamps).commit
     end
 
-    def update(attrs)
-      super root.changeset(:update, attrs).map(:add_timestamps)
+    def update(id, attrs)
+      super root.by_id(id).changeset(:update, attrs).map(){|rec| rec.merge(updated_at: Time.now.getlocal) }.commit
     end
 
 
@@ -20,24 +19,24 @@ module Repositories
       root.to_a
     end
 
+    def by_id(id)
+      root.by_id(id).one
+    end
+
+    def find_by(conditions)
+      root.find_by(conditions).to_a
+    end
+
     def names
       root.pluck(:name)
     end
 
     def by_name(value)
-      root.where(name: value).one
-    end
-
-    def by_id(id)
-      root.by_pk(id).one
-    end
-
-    def find_by(col_val_hash)
-      root.where(col_val_hash).to_a
+      root.by_name(value).one
     end
 
     def with_groups(id)
-      root.where(id: id).combine([:user_group_roles]).one
+      aggregate([:user_group_roles]).by_id(id).one
     end
 
   end

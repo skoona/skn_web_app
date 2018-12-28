@@ -14,6 +14,97 @@
     </p>
   </div>
 
-  <h3 class="text-center">Welcome <%= logged_in? ? current_user.name : 'UserName' %><br/><small>Users Page</small></h3>
+  <h3 class="text-center">Welcome <%= logged_in? ? current_user.name : 'UserName' %><br/><small>Users Details</small></h3>
+
+  <% if logged_in? and resources.success %>
+     <section>
+        <% pkg = resources.payload %>
+
+       <div class="well col-md-5">
+         <% if pkg.user? %>
+          <div class="col-md-2">
+            <i class="fa fa-address-book-o fa-5x fa-pull-left" aria-hidden="true"></i>
+          </div>
+          <div class="col-md-10">
+            <h4 class="col-md-12"><%= pkg.user.name %></h4>
+            <div class="col-md-3">User</div>
+              <div class="col-md-9"><%= pkg.user.username %></div>
+            <div class="col-md-3">EMail</div>
+              <div class="col-md-9"><%= pkg.user.email %></div>
+            <div class="col-md-3">Status</div>
+              <div class="col-md-9"><%= pkg.user.active ? 'Active' : 'No Active' %></div>
+            <div class="col-md-3">Created</div>
+              <div class="col-md-9"><%= pkg.user.created_at.strftime("%Y-%m-%d %H:%M %Z") %></div>
+            <div class="col-md-3">Updated</div>
+              <div class="col-md-9"><%= pkg.user.updated_at.strftime("%Y-%m-%d %H:%M %Z") %></div>
+          </div>
+         <% else %>
+           <i class="fa fa-hand-stop-o fa-3x fa-pull-left" aria-hidden="true"></i>
+           <h4>No Access Profile</h4>
+         <% end %>
+       </div>
+
+       <div class="well col-md-7">
+         <% if pkg.content_profile? %>
+           <div class="col-md-2">
+             <i class="fa fa-address-card-o fa-5x" aria-hidden="true"></i>
+           </div>
+           <div class="col-md-10">
+             <h4 class="col-md-12"><%= pkg&.content_profile.profile_type.description %>: <%= pkg&.content_profile.profile_type.name %></h4>
+             <div class="col-md-3">Authenticator</div>
+             <div class="col-md-9"><%= pkg.content_profile.authentication_provider %></div>
+             <div class="col-md-3">Email</div>
+             <div class="col-md-9"><%= pkg.content_profile.email %></div>
+             <div class="col-md-3">Created</div>
+             <div class="col-md-9"><%= pkg.content_profile.created_at.strftime("%Y-%m-%d %H:%M %Z") %></div>
+             <div class="col-md-3">Updated</div>
+             <div class="col-md-9"><%= pkg.content_profile.updated_at.strftime("%Y-%m-%d %H:%M %Z") %></div>
+           </div>
+         <% else %>
+           <i class="fa fa-hand-stop-o fa-3x fa-pull-left" aria-hidden="true"></i>
+           <h4>No Content Profile</h4>
+         <% end %>
+       </div>
+     </section>
+
+     <section>
+       <div class="well col-md-5">
+         <% if pkg.access_profile? %>
+
+         <div class="col-md-2">
+           <i class="fa fa-handshake-o fa-3x fa-pull-left" aria-hidden="true"></i>
+         </div>
+         <div class="col-md-10">
+           <h4 class="col-md-12">Access Permissions</h4>
+           <% pkg.access_profile.each do |ac| %>
+             <div class="col-md-12"><%= ac %></div>
+           <% end %>
+         </div>
+         <% else %>
+           <i class="fa fa-hand-stop-o fa-3x fa-pull-left" aria-hidden="true"></i>
+           <h4>No Access Permissions</h4>
+         <% end %>
+       </div>
+
+       <div class="well col-md-7">
+         <% if pkg.content_profile_entries? %>
+         <div class="col-md-2">
+           <i class="fa fa-handshake-o fa-3x pull-left" aria-hidden="true"></i>
+         </div>
+         <div class="col-md-10">
+           <h4 class="col-md-12">Content Permissions</h4>
+           <% pkg.content_profile_entries.each do |cpe| %>
+             <div class="col-md-12"><%= "#{cpe.description} for #{cpe.topic_type}: #{cpe.topic_value.first}" %></div>
+           <% end %>
+         </div>
+       </div>
+         <% else %>
+           <i class="fa fa-hand-stop-o fa-3x fa-pull-left" aria-hidden="true"></i>
+           <h4>No Content Permissions</h4>
+         <% end %>
+       </div>
+
+     </section>
+  <% end %>
 
 </article>

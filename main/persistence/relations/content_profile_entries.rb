@@ -8,6 +8,8 @@
 module Relations
 
   class ContentProfileEntries < ROM::Relation[:sql]
+    struct_namespace ::Entities
+
     schema(:content_profile_entries, infer: false) do
 
       attribute :id, ROM::SQL::Types::Serial
@@ -30,5 +32,13 @@ module Relations
 
     # See Namespace in Repository
     auto_struct true
+
+    def by_id(id)
+      by_pk(id)
+    end
+
+    def find_by(conditions) # {}
+      where(conditions)
+    end
   end
 end

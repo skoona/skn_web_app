@@ -8,10 +8,10 @@ class SknApp
   extend Dry::Configurable
 
   # Enable SknApp.env, SknApp.root, and SknApp.logger
-  setting(:rom)
+  setting(:rom , "", reader: true)
   setting(:env, ::SknUtils::EnvStringHandler.new( ENV.fetch('RACK_ENV', 'development')), reader: true)
   setting(:root, ::SknUtils::EnvStringHandler.new( Dir.pwd ), reader: true)
   setting(:registry, ::Dry::Container.new, reader: true)
-  setting(:logger, "", reader: true, writer: true)
+  setting(:logger, "", reader: true)
 
 end

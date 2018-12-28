@@ -4,27 +4,26 @@
 module Repositories
 
   class ContentTypes < ROM::Repository[:content_types]
-    struct_namespace Entities
     commands :create, update: :by_pk, delete: :by_pk
 
     def create(attrs)
-      super root.changeset(:create, attrs).map(:add_timestamps)
+      super root.changeset(:create, attrs).map(:add_timestamps).commit
     end
 
-    def update(attrs)
-      super root.changeset(:update, attrs).map(:add_timestamps)
+    def update(id, attrs)
+      super root.by_id(id).changeset(:update, attrs).map(){|rec| rec.merge(updated_at: Time.now.getlocal) }.commit
     end
 
     def all(opts=false)
-      opts ? root.combine([:content_type_opts]).to_a : root.to_a
+      opts ? aggregate([:content_type_opts]).to_a : root.to_a
     end
 
     def by_id(id)
-      root.by_pk(id).one
+      root.by_id(id).one
     end
 
     def with_opts(id)
-      root.where(id: id).combine([:content_type_opts]).one
+      aggregate([:content_type_opts]).by_id(id).one
     end
 
     def names
@@ -32,11 +31,11 @@ module Repositories
     end
 
     def by_name(value, opts=false)
-      opts ? root.where(name: value).combine([:content_type_opts]).one : root.where(name: value).one
+      opts ? aggregate([:content_type_opts]).by_name(value).one : root.by_name(value).one
     end
 
-    def find_by(col_val_hash, opts=false)
-      opts ? root.where(col_val_hash).combine([:content_type_opts]).to_a : root.where(col_val_hash).to_a
+    def find_by(conditions, opts=false)
+      opts ? aggregate([:content_type_opts]).find_by(conditions).to_a : root.find_by(conditions).to_a
     end
 
   end
