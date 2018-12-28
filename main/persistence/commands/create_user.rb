@@ -9,7 +9,7 @@ module Commands
     register_as :create_user
 
     def execute(tuple)
-      if !!root.by_pak(tuple.person_authentication_key)
+      if root.by_pak(tuple.person_authentication_key).exist?
         raise(PersonAuthenticationKeyNotUnique,
               "Key: #{tuple.person_authentication_key} is a duplicate!")
       end
