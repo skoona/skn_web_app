@@ -1,81 +1,78 @@
 
 <section>
   <% unless request.params.empty? %>
-    <div class="col-md-4">
-      <div class="well-lg">
-        <h4>Request Params</h4>
-        <ul class="fa-ul">
-          <% request.params.to_h.each_pair do |k,v| -%>
-            <% if v.is_a?(Hash) %>
-              <p><%= k %></p>
-              <ul class="fa-ul">
-                <% v.each_pair do |ik,iv| %>
-                  <li><i class="fa-li fa fa-check" aria-hidden="true"></i><%= "#{ik}: #{iv}" %></li>
-                <% end %>
-              </ul>
-            <% else %>
-              <li><i class="fa-li fa fa-cogs" aria-hidden="true"></i><%= "#{k}: #{v}" %></li>
-            <% end %>
+    <div class="well col-md-6">
+      <h4 class="col-md-12 text-left">Request Params</h4>
+      <% request.params.to_h.each_pair do |k,v| -%>
+        <% if v.is_a?(Hash) %>
+          <div class="col-md-12"><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;<%= k %></div>
+          <% v.each_pair do |ik,iv| %>
+            <div class="col-md-offset-1 col-md-5 text-right"><%= ik %>:</div>
+            <div class="col-md-6"><%= iv %>&nbsp;</div>
           <% end %>
-        </ul>
-      </div>
+        <% else %>
+          <div class="col-md-4"><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;<%= k %>:</div>
+          <div class="col-md-8"><%= "#{v}:#{v.object_id}" %>&nbsp;</div>
+        <% end %>
+      <% end %>
     </div>
   <% end %>
 
-  <div class="col-md-4">
-    <% unless env['warden.options'].nil? %>
-      <div class="well-lg">
-        <h4>Warden Options</h4>
-        <ul class="fa-ul">
-          <% env['warden.options'].each_pair do |k,v| -%>
-            <% if v.is_a?(Hash) %>
-              <p><%= k %></p>
-              <ul class="fa-ul">
-                <% v.each_pair do |ik,iv| %>
-                  <li><i class="fa-li fa fa-check" aria-hidden="true"></i><%= "#{ik}: #{iv}" %></li>
-                <% end %>
-              </ul>
-            <% else %>
-              <li><i class="fa-li fa fa-cogs" aria-hidden="true"></i><%= "#{k}: #{v}:#{v.object_id}" %></li>
-            <% end %>
+  <% unless env['warden.options'].nil? %>
+    <div class="well col-md-6">
+      <h4 class="col-md-12 text-left">Warden Options</h4>
+      <% env['warden.options'].each_pair do |k,v| -%>
+        <% if v.is_a?(Hash) %>
+          <div class="col-md-12"><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;<%= k %></div>
+          <% v.each_pair do |ik,iv| %>
+            <div class="col-md-offset-1 col-md-5 text-right"><%= ik %>:</div>
+            <div class="col-md-6"><%= iv %>&nbsp;</div>
           <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <% unless request.cookies.nil? %>
-      <div class="well-lg">
-        <h4>Cookies</h4>
-        <ul class="fa-ul">
-          <% request.cookies.each do |k,v| -%>
-            <li><i class="fa-li fa fa-cogs" aria-hidden="true"></i><%= "#{k}: #{v[0..8]}" %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="col-md-4">
-    <div class="well-lg">
-      <h4>Rutime Status</h4>
-      <ul class="fa-ul">
-        <li><i class="fa-li fa fa-check-square-o" aria-hidden="true"></i>Production: <%= current_environment_production? %></li>
-        <li><i class="fa-li fa fa-check-square-o" aria-hidden="true"></i>Development: <%= !current_environment_production? %></li>
-        <li><i class="fa-li fa fa-check-square-o" aria-hidden="true"></i>Environment: <%= current_environment_name %></li>
-        <li>
-          <% if attempted_page.empty? %>
-            <i class="fa-li fa fa-square" aria-hidden="true"></i>
-          <% else %>
-            <i class="fa-li fa fa-check-square-o" aria-hidden="true"></i>
-          <% end %>
-          Attempted Page: <%= attempted_page %>
-        </li>
-        <li><i class="fa-li fa fa-check-square-o" aria-hidden="true"></i>Current Page: <%= current_page %></li>
-        <li><i class="fa-li fa fa-check-square-o" aria-hidden="true"></i>Request Path: <%= request.path %></li>
-        <li><i class="fa-li fa fa-check-square-o" aria-hidden="true"></i>Matched Path: <%= request.matched_path %></li>
-        <li><i class="fa-li fa fa-check-square-o" aria-hidden="true"></i>Request Method: <%= request.request_method %></li>
-        <li><i class="fa-li fa fa-check-square-o" aria-hidden="true"></i>Response Status: <%= response.status %></li>
-      </ul>
+        <% else %>
+          <div class="col-md-4"><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;<%= k %>:</div>
+          <div class="col-md-8"><%= "#{v}:#{v.object_id}" %>&nbsp;</div>
+        <% end %>
+      <% end %>
     </div>
+  <% end %>
+
+  <% unless request.cookies.nil? %>
+    <div class="well col-md-6">
+      <h4 class="col-md-12 text-left">Cookies</h4>
+      <% request.cookies.each do |k,v| -%>
+        <div class="col-md-5"><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;<%= k %>:</div>
+        <div class="col-md-7"><%= v[0..15] %>&nbsp;</div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="well col-md-6">
+    <h4 class="col-md-12 text-left">Rutime Status</h4>
+    <div class="col-md-4"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;Production?:</div>
+    <div class="col-md-8"><%= current_environment_production? %></div>
+    <div class="col-md-4"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;Development?:</div>
+    <div class="col-md-8"><%= !current_environment_production? %></div>
+    <div class="col-md-4"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;Environment:</div>
+    <div class="col-md-8"><%= current_environment_name %></div>
+    <div class="col-md-4">
+      <% if attempted_page.empty? %>
+        <i class="fa fa-square" aria-hidden="true"></i>
+      <% else %>
+        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+      <% end %>
+      Attempted Page:
+    </div>
+    <div class="col-md-8"><%= attempted_page %>&nbsp;</div>
+    <div class="col-md-4"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;Current Page:</div>
+    <div class="col-md-8"><%= current_page %>&nbsp;</div>
+    <div class="col-md-4"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;Request Path:</div>
+    <div class="col-md-8"><%= request.path %>&nbsp;</div>
+    <div class="col-md-4"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;Matched Path:</div>
+    <div class="col-md-8"><%= request.matched_path %>&nbsp;</div>
+    <div class="col-md-4"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;Request Method:</div>
+    <div class="col-md-8"><%= request.request_method %>&nbsp;</div>
+    <div class="col-md-4"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;Response Status:</div>
+    <div class="col-md-8"><%= response.status %></div>
   </div>
 
 </section>

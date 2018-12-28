@@ -23,11 +23,13 @@
        <div class="well col-md-5">
          <% if pkg.user? %>
           <div class="col-md-2">
-            <i class="fa fa-address-book-o fa-5x fa-pull-left" aria-hidden="true"></i>
+            <i class="fa fa-address-book-o fa-5x" aria-hidden="true"></i>
           </div>
           <div class="col-md-10">
-            <h4 class="col-md-12"><%= pkg.user.name %></h4>
-            <div class="col-md-3">User</div>
+            <h4 class="col-md-12">Access Profile</h4>
+            <div class="col-md-3">Name</div>
+              <div class="col-md-9"><%= pkg.user.name %></div>
+            <div class="col-md-3">Username</div>
               <div class="col-md-9"><%= pkg.user.username %></div>
             <div class="col-md-3">EMail</div>
               <div class="col-md-9"><%= pkg.user.email %></div>
@@ -50,7 +52,9 @@
              <i class="fa fa-address-card-o fa-5x" aria-hidden="true"></i>
            </div>
            <div class="col-md-10">
-             <h4 class="col-md-12"><%= pkg&.content_profile.profile_type.description %>: <%= pkg&.content_profile.profile_type.name %></h4>
+             <h4 class="col-md-12">Content Profile</h4>
+             <div class="col-md-3">Profile</div>
+             <div class="col-md-9"><%= pkg.content_profile.profile_type.description %>: <%= pkg&.content_profile.profile_type.name %></div>
              <div class="col-md-3">Authenticator</div>
              <div class="col-md-9"><%= pkg.content_profile.authentication_provider %></div>
              <div class="col-md-3">Email</div>
@@ -72,7 +76,7 @@
          <% if pkg.access_profile? %>
 
          <div class="col-md-2">
-           <i class="fa fa-handshake-o fa-3x fa-pull-left" aria-hidden="true"></i>
+           <i class="fa fa-handshake-o fa-3x" aria-hidden="true"></i>
          </div>
          <div class="col-md-10">
            <h4 class="col-md-12">Access Permissions</h4>
@@ -89,7 +93,7 @@
        <div class="well col-md-7">
          <% if pkg.content_profile_entries? %>
          <div class="col-md-2">
-           <i class="fa fa-handshake-o fa-3x pull-left" aria-hidden="true"></i>
+           <i class="fa fa-handshake-o fa-3x" aria-hidden="true"></i>
          </div>
          <div class="col-md-10">
            <h4 class="col-md-12">Content Permissions</h4>

@@ -30,7 +30,7 @@ gem 'dry-monads'
 gem 'dry-struct'
 gem 'dry-container'
 gem 'dry-configurable'
-gem 'dry-validation'
+# gem 'dry-validation'
 
 
 # General Utilities

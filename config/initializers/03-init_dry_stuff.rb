@@ -11,8 +11,8 @@ M = Dry::Monads
 # Ref: https://dry-rb.org/gems/dry-validation/
 # - Used in combination with Dry-Struct
 #
-Dry::Validation.load_extensions(:monads)
-Dry::Validation.load_extensions(:struct)
+# Dry::Validation.load_extensions(:monads)
+# Dry::Validation.load_extensions(:struct)
 Dry::Types.load_extensions(:maybe)
 
 module Types
